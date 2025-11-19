@@ -1,0 +1,1320 @@
+metadata:
+  type: "rule"
+  version: "2025-26"
+  jurisdiction: "IN"
+  effective_date: "2025-04-01"
+  description: "Comprehensive payroll DSL for Indian employment regulations covering income tax, allowances, deductions, and compliance requirements for Assessment Year 2025-26"
+
+# =============================================================================
+# TAX SLAB DEFINITIONS
+# =============================================================================
+income_tax_slabs:
+  - rule_id: "IN-IT-SLAB-OLD-NORMAL-001"
+    slab:
+      name: "IncomeTaxSlabOldRegimeNormal"
+      range_mode: "Progressive"
+      entries:
+        - entry:
+          key: "Slab_0_to_250000"
+          range: 0.0
+          value: "0.00"
+        - entry:
+          key: "Slab_250001_to_500000"
+          range: 250000.0
+          value: "0.05"
+        - entry:
+          key: "Slab_500001_to_1000000"
+          range: 500000.0
+          value: "0.20"
+        - entry:
+          key: "Slab_1000001_plus"
+          range: 1000000.0
+          value: "0.30"
+
+  - rule_id: "IN-IT-SLAB-OLD-SENIOR-001"
+    slab:
+      name: "IncomeTaxSlabOldRegimeSenior"
+      range_mode: "Progressive"
+      entries:
+        - entry:
+          key: "Slab_0_to_300000"
+          range: 0.0
+          value: "0.00"
+        - entry:
+          key: "Slab_300001_to_500000"
+          range: 300000.0
+          value: "0.05"
+        - entry:
+          key: "Slab_500001_to_1000000"
+          range: 500000.0
+          value: "0.20"
+        - entry:
+          key: "Slab_1000001_plus"
+          range: 1000000.0
+          value: "0.30"
+
+  - rule_id: "IN-IT-SLAB-OLD-SUPER-001"
+    slab:
+      name: "IncomeTaxSlabOldRegimeSuper"
+      range_mode: "Progressive"
+      entries:
+        - entry:
+          key: "Slab_0_to_500000"
+          range: 0.0
+          value: "0.00"
+        - entry:
+          key: "Slab_500001_to_1000000"
+          range: 500000.0
+          value: "0.20"
+        - entry:
+          key: "Slab_1000001_plus"
+          range: 1000000.0
+          value: "0.30"
+
+  - rule_id: "IN-IT-SLAB-NEW-2025-001"
+    slab:
+      name: "IncomeTaxSlabNewRegime2025"
+      range_mode: "Progressive"
+      entries:
+        - entry:
+          key: "Slab_0_to_300000"
+          range: 0.0
+          value: "0.00"
+        - entry:
+          key: "Slab_300001_to_700000"
+          range: 300000.0
+          value: "0.05"
+        - entry:
+          key: "Slab_700001_to_1000000"
+          range: 700000.0
+          value: "0.10"
+        - entry:
+          key: "Slab_1000001_to_1200000"
+          range: 1000000.0
+          value: "0.15"
+        - entry:
+          key: "Slab_1200001_to_1500000"
+          range: 1200000.0
+          value: "0.20"
+        - entry:
+          key: "Slab_1500001_plus"
+          range: 1500000.0
+          value: "0.30"
+
+  - rule_id: "IN-IT-SLAB-NEW-2026-001"
+    slab:
+      name: "IncomeTaxSlabNewRegime2026"
+      range_mode: "Progressive"
+      entries:
+        - entry:
+          key: "Slab_0_to_400000"
+          range: 0.0
+          value: "0.00"
+        - entry:
+          key: "Slab_400001_to_800000"
+          range: 400000.0
+          value: "0.05"
+        - entry:
+          key: "Slab_800001_to_1200000"
+          range: 800000.0
+          value: "0.10"
+        - entry:
+          key: "Slab_1200001_to_1600000"
+          range: 1200000.0
+          value: "0.15"
+        - entry:
+          key: "Slab_1600001_to_2000000"
+          range: 1600000.0
+          value: "0.20"
+        - entry:
+          key: "Slab_2000001_to_2400000"
+          range: 2000000.0
+          value: "0.25"
+        - entry:
+          key: "Slab_2400001_plus"
+          range: 2400000.0
+          value: "0.30"
+
+surcharge_slabs:
+  - rule_id: "IN-SUR-SLAB-OLD-001"
+    slab:
+      name: "SurchargeSlabOldRegime"
+      range_mode: "Threshold"
+      entries:
+        - entry:
+          key: "Income_0_to_50L"
+          range: 0.0
+          value: "0.00"
+        - entry:
+          key: "Income_50L_to_1Cr"
+          range: 5000000.0
+          value: "0.10"
+        - entry:
+          key: "Income_1Cr_to_2Cr"
+          range: 10000000.0
+          value: "0.15"
+        - entry:
+          key: "Income_2Cr_to_5Cr"
+          range: 20000000.0
+          value: "0.25"
+        - entry:
+          key: "Income_Above_5Cr"
+          range: 50000000.0
+          value: "0.37"
+
+  - rule_id: "IN-SUR-SLAB-NEW-001"
+    slab:
+      name: "SurchargeSlabNewRegime"
+      range_mode: "Threshold"
+      entries:
+        - entry:
+          key: "Income_0_to_50L"
+          range: 0.0
+          value: "0.00"
+        - entry:
+          key: "Income_50L_to_1Cr"
+          range: 5000000.0
+          value: "0.10"
+        - entry:
+          key: "Income_1Cr_to_2Cr"
+          range: 10000000.0
+          value: "0.15"
+        - entry:
+          key: "Income_2Cr_to_5Cr"
+          range: 20000000.0
+          value: "0.25"
+        - entry:
+          key: "Income_Above_5Cr"
+          range: 50000000.0
+          value: "0.25"
+
+# =============================================================================
+# COLLECTORS
+# =============================================================================
+collectors:
+  - rule_id: "IN-COL-GROSS-INCOME-001"
+    name: "gross_total_income"
+    collect_mode: "summary"
+  - rule_id: "IN-COL-ALLOWANCES-001"
+    name: "total_allowances_received"
+    collect_mode: "summary"
+  - rule_id: "IN-COL-EXEMPTIONS-001"
+    name: "total_tax_exemptions"
+    collect_mode: "summary"
+  - rule_id: "IN-COL-80C-001"
+    name: "total_80c_deductions"
+    collect_mode: "summary"
+  - rule_id: "IN-COL-CHAPTER-VIA-001"
+    name: "total_chapter_via_deductions"
+    collect_mode: "summary"
+  - rule_id: "IN-COL-TAX-DED-001"
+    name: "total_tax_deductions"
+    collect_mode: "summary"
+  - rule_id: "IN-COL-SALARY-DED-001"
+    name: "total_salary_deductions"
+    collect_mode: "summary"
+
+# =============================================================================
+# TAX REGIME SELECTION RULES
+# =============================================================================
+tax_regime_rules:
+  - rule_id: "IN-IT-2025-REG-001"
+    name: "default_tax_regime_selection"
+    when:
+      - get_field_value("employee.residency") == "IN"
+      - !has_field("employee.tax_regime")
+      - get_field_value("employee.taxpayer_type") == "individual"
+    then:
+      - set_value("employee.tax_regime", "new")
+    process_order: 100
+
+  - rule_id: "IN-IT-2025-REG-002"
+    name: "old_regime_opt_in_validation"
+    when:
+      - get_field_value("employee.tax_regime") == "old"
+      - get_field_value("employee.residency") == "IN"
+    then:
+      - set_value("regime_validated", true)
+      - set_value("can_claim_exemptions", true)
+    process_order: 110
+
+# =============================================================================
+# INCOME COMPUTATION RULES
+# =============================================================================
+income_computation_rules:
+  - rule_id: "IN-SAL-2025-COMP-001"
+    name: "basic_salary"
+    when:
+      - get_field_value("employee.employment_type") == "salaried"
+      - has_field("employee.basic_salary")
+    then:
+      - set_value("basic_salary", get_field_value("employee.basic_salary"))
+    result: get_field_value("basic_salary")
+    result_collect:
+      - "gross_total_income"
+    process_order: 1000
+
+  - rule_id: "IN-SAL-2025-COMP-002"
+    name: "gross_salary"
+    when:
+      - get_field_value("employee.employment_type") == "salaried"
+    then:
+      - set_value("gross_salary_computed", get_field_value("employee.basic_salary") + 
+          (get_field_value("employee.special_allowance") or 0) +
+          (get_field_value("employee.conveyance_allowance") or 0) +
+          (get_field_value("employee.transport_allowance") or 0) +
+          (get_field_value("employee.lta_received") or 0) +
+          (get_field_value("employee.entertainment_allowance") or 0) +
+          (get_field_value("employee.meal_vouchers") or 0) +
+          (get_field_value("employee.uniform_allowance") or 0) +
+          (get_field_value("employee.children_education_allowance") or 0) +
+          (get_field_value("employee.tribal_area_allowance") or 0) +
+          (get_field_value("employee.border_area_allowance") or 0) +
+          (get_field_value("employee.remote_area_allowance") or 0) +
+          (get_field_value("employee.telephone_data_allowance") or 0) +
+          (get_field_value("employee.children_hostel_allowance") or 0) +
+          (get_field_value("employee.general_allowance") or 0) +
+          (get_field_value("employee.cost_of_living_allowance") or 0) +
+          (get_field_value("employee.insurance_allowance") or 0) +
+          (get_field_value("employee.other_allowance") or 0) +
+          (get_field_value("employee.books_and_periodical_allowance") or 0) +
+          (get_field_value("employee.telephone_reimbursement") or 0) +
+          (get_field_value("employee.opd_dental_vision_allowance") or 0) +
+          (get_field_value("employee.medical_allowance") or 0) +
+          (get_field_value("employee.internet_allowance") or 0) +
+          (get_field_value("employee.home_office_allowance") or 0) +
+          (get_field_value("employee.motor_car_allowance") or 0))
+    result: get_field_value("gross_salary_computed")
+    result_collect:
+      - "gross_total_income"
+    process_order: 1010
+
+  - rule_id: "IN-BON-2025-TAX-001"
+    name: "commission"
+    when:
+      - get_field_value("employee.commission") > 0
+    then:
+      - set_value("commission", get_field_value("employee.commission"))
+    result: get_field_value("commission")
+    result_collect:
+      - "gross_total_income"
+    process_order: 1020
+
+  - rule_id: "IN-BON-2025-TAX-002"
+    name: "bonus"
+    when:
+      - get_field_value("employee.bonus") > 0
+    then:
+      - set_value("bonus", get_field_value("employee.bonus"))
+    result: get_field_value("bonus")
+    result_collect:
+      - "gross_total_income"
+    process_order: 1030
+
+  - rule_id: "IN-ARR-2025-TAX-001"
+    name: "salary_arrears_and_advance_taxation"
+    when:
+      - get_field_value("employee.salary_arrears") > 0 or get_field_value("employee.advance_salary") > 0
+    then:
+      - set_value("arrears_advance_total", (get_field_value("employee.salary_arrears") or 0) + (get_field_value("employee.advance_salary") or 0))
+      - set_value("arrears_taxable_current_year", get_field_value("arrears_advance_total"))
+      - set_value("section_89_relief_eligible", get_field_value("employee.salary_arrears") > 0)
+    result: get_field_value("arrears_advance_total")
+    result_collect:
+      - "gross_total_income"
+    process_order: 1040
+
+  - rule_id: "IN-COL-2025-EMIT-001"
+    name: "emit_total_income_collector"
+    when:
+      - get_field_value("employee.employment_type") == "salaried"
+    then:
+      - set_value("total_income", get_collector("gross_total_income"))
+    result: get_field_value("total_income")
+    process_order: 1099
+
+# =============================================================================
+# ALLOWANCES RECEIVED RULES
+# =============================================================================
+allowances_received_rules:
+  - rule_id: "IN-HRA-2025-REC-001"
+    name: "hra_allowance_received"
+    when:
+      - get_field_value("employee.hra_received") > 0
+    then:
+      - set_value("hra_allowance_received", get_field_value("employee.hra_received"))
+    result: get_field_value("hra_allowance_received")
+    result_collect:
+      - "total_allowances_received"
+    process_order: 1101
+
+  - rule_id: "IN-CHH-2025-REC-001"
+    name: "children_hostel_allowance_received"
+    when:
+      - get_field_value("employee.children_hostel_allowance") > 0
+    then:
+      - set_value("children_hostel_allowance_received", get_field_value("employee.children_hostel_allowance"))
+    result: get_field_value("children_hostel_allowance_received")
+    result_collect:
+      - "total_allowances_received"
+    process_order: 1102
+
+  - rule_id: "IN-TEL-2025-REC-001"
+    name: "telephone_reimbursement_received"
+    when:
+      - get_field_value("employee.telephone_reimbursement") > 0
+    then:
+      - set_value("telephone_reimbursement_received", get_field_value("employee.telephone_reimbursement"))
+    result: get_field_value("telephone_reimbursement_received")
+    result_collect:
+      - "total_allowances_received"
+    process_order: 1103
+
+  - rule_id: "IN-CON-2025-REC-001"
+    name: "conveyance_allowance_received"
+    when:
+      - get_field_value("employee.conveyance_allowance") > 0
+    then:
+      - set_value("conveyance_allowance_received", get_field_value("employee.conveyance_allowance"))
+    result: get_field_value("conveyance_allowance_received")
+    result_collect:
+      - "total_allowances_received"
+    process_order: 1104
+
+  - rule_id: "IN-BOO-2025-REC-001"
+    name: "books_and_periodical_allowance_received"
+    when:
+      - get_field_value("employee.books_and_periodical_allowance") > 0
+    then:
+      - set_value("books_and_periodical_allowance_received", get_field_value("employee.books_and_periodical_allowance"))
+    result: get_field_value("books_and_periodical_allowance_received")
+    result_collect:
+      - "total_allowances_received"
+    process_order: 1105
+
+  - rule_id: "IN-CHE-2025-REC-001"
+    name: "children_education_allowance_received"
+    when:
+      - get_field_value("employee.children_education_allowance") > 0
+    then:
+      - set_value("children_education_allowance_received", get_field_value("employee.children_education_allowance"))
+    result: get_field_value("children_education_allowance_received")
+    result_collect:
+      - "total_allowances_received"
+    process_order: 1106
+
+  - rule_id: "IN-MOT-2025-REC-001"
+    name: "motor_car_allowance_received"
+    when:
+      - get_field_value("employee.motor_car_allowance") > 0
+    then:
+      - set_value("motor_car_allowance_received", get_field_value("employee.motor_car_allowance"))
+    result: get_field_value("motor_car_allowance_received")
+    result_collect:
+      - "total_allowances_received"
+    process_order: 1107
+
+  - rule_id: "IN-TRA-2025-REC-001"
+    name: "transport_allowance_received"
+    when:
+      - get_field_value("employee.transport_allowance") > 0
+    then:
+      - set_value("transport_allowance_received", get_field_value("employee.transport_allowance"))
+    result: get_field_value("transport_allowance_received")
+    result_collect:
+      - "total_allowances_received"
+    process_order: 1108
+
+  - rule_id: "IN-INS-2025-REC-001"
+    name: "insurance_allowance_received"
+    when:
+      - get_field_value("employee.insurance_allowance") > 0
+    then:
+      - set_value("insurance_allowance_received", get_field_value("employee.insurance_allowance"))
+    result: get_field_value("insurance_allowance_received")
+    result_collect:
+      - "total_allowances_received"
+    process_order: 1109
+
+  - rule_id: "IN-MEA-2025-REC-001"
+    name: "meal_voucher_received"
+    when:
+      - get_field_value("employee.meal_vouchers") > 0
+    then:
+      - set_value("meal_voucher_received", get_field_value("employee.meal_vouchers"))
+    result: get_field_value("meal_voucher_received")
+    result_collect:
+      - "total_allowances_received"
+    process_order: 1110
+
+  - rule_id: "IN-SPC-2025-REC-001"
+    name: "speacial_allowance_received"
+    when:
+      - get_field_value("employee.special_allowance") > 0
+    then:
+      - set_value("speacial_allowance_received", get_field_value("employee.special_allowance"))
+    result: get_field_value("speacial_allowance_received")
+    result_collect:
+      - "total_allowances_received"
+    process_order: 1111
+
+  - rule_id: "IN-LTA-2025-REC-001"
+    name: "leave_travel_allowance_received"
+    when:
+      - get_field_value("employee.lta_received") > 0
+    then:
+      - set_value("leave_travel_allowance_received", get_field_value("employee.lta_received"))
+    result: get_field_value("leave_travel_allowance_received")
+    result_collect:
+      - "total_allowances_received"
+    process_order: 1112
+
+  - rule_id: "IN-OTH-2025-REC-001"
+    name: "other_allowances_received"
+    when:
+      - get_field_value("employee.other_allowance") > 0
+    then:
+      - set_value("other_allowances_received", get_field_value("employee.other_allowance"))
+    result: get_field_value("other_allowances_received")
+    result_collect:
+      - "total_allowances_received"
+    process_order: 1150
+
+  - rule_id: "IN-COL-2025-EMIT-002"
+    name: "emit_total_allowances_received_collector"
+    when:
+      - get_field_value("employee.employment_type") == "salaried"
+    then:
+      - set_value("total_allowances_received", get_collector("total_allowances_received"))
+    result: get_field_value("total_allowances_received")
+    process_order: 1199
+
+# =============================================================================
+# EXEMPTION CALCULATION RULES
+# =============================================================================
+hra_exemption_rules:
+  - rule_id: "IN-HRA-2025-EXE-001"
+    name: "hra_exemption_metro"
+    when:
+      - get_field_value("employee.tax_regime") == "old"
+      - get_field_value("employee.hra_received") > 0
+      - contains(get_field_value("employee.city"), "Delhi", "Mumbai", "Chennai", "Kolkata")
+      - get_field_value("employee.rent_paid") > 0
+      - get_field_value("employee.owns_house_in_work_city") != true
+    then:
+      - set_value("salary_for_hra_correct", get_field_value("employee.basic_salary") + (get_field_value("employee.commission") or 0))
+      - set_value("ten_percent_salary", get_field_value("salary_for_hra_correct") * 0.10)
+      - set_value("fifty_percent_salary", get_field_value("salary_for_hra_correct") * 0.50)
+      - set_value("rent_minus_ten_percent", get_field_value("employee.rent_paid") - get_field_value("ten_percent_salary"))
+      - set_value("hra_exemption_metro", min(get_field_value("employee.hra_received"), min(get_field_value("fifty_percent_salary"), get_field_value("rent_minus_ten_percent"))))
+    result: get_field_value("hra_exemption_metro")
+    process_order: 2201
+
+  - rule_id: "IN-HRA-2025-EXE-002"
+    name: "hra_exemption_non_metro"
+    when:
+      - get_field_value("employee.tax_regime") == "old"
+      - get_field_value("employee.hra_received") > 0
+      - !contains(get_field_value("employee.city"), "Delhi", "Mumbai", "Chennai", "Kolkata")
+      - get_field_value("employee.rent_paid") > 0
+      - get_field_value("employee.owns_house_in_work_city") != true
+    then:
+      - set_value("salary_for_hra_correct", get_field_value("employee.basic_salary") + (get_field_value("employee.commission") or 0))
+      - set_value("ten_percent_salary", get_field_value("salary_for_hra_correct") * 0.10)
+      - set_value("forty_percent_salary", get_field_value("salary_for_hra_correct") * 0.40)
+      - set_value("rent_minus_ten_percent", get_field_value("employee.rent_paid") - get_field_value("ten_percent_salary"))
+      - set_value("hra_exemption_non_metro", min(get_field_value("employee.hra_received"), min(get_field_value("forty_percent_salary"), get_field_value("rent_minus_ten_percent"))))
+    result: get_field_value("hra_exemption_non_metro")
+    process_order: 2202
+
+  - rule_id: "IN-HRA-2025-EXE-005"
+    name: "hra_exemption_final"
+    when:
+      - get_field_value("employee.tax_regime") == "old"
+      - get_field_value("employee.hra_received") > 0
+    then:
+      - set_value("hra_exemption_final", max((get_field_value("hra_exemption_metro") or 0), (get_field_value("hra_exemption_non_metro") or 0)))
+    result: get_field_value("hra_exemption_final")
+    result_collect:
+      - "total_tax_exemptions"
+    process_order: 2205
+
+  - rule_id: "IN-TEL-2025-EXE-001"
+    name: "telephone_reimbursement_exemption"
+    when:
+      - get_field_value("employee.telephone_reimbursement") > 0
+    then:
+      - set_value("telephone_reimbursement_exemption", get_field_value("employee.telephone_reimbursement"))
+    result: get_field_value("telephone_reimbursement_exemption")
+    result_collect:
+      - "total_tax_exemptions"
+    process_order: 2210
+
+  - rule_id: "IN-CON-2025-EXE-001"
+    name: "conveyance_allowance_exemption"
+    when:
+      - get_field_value("employee.conveyance_allowance") > 0
+    then:
+      - set_value("conveyance_allowance_exemption", get_field_value("employee.conveyance_allowance"))
+    result: get_field_value("conveyance_allowance_exemption")
+    result_collect:
+      - "total_tax_exemptions"
+    process_order: 2220
+
+  - rule_id: "IN-BOO-2025-EXE-001"
+    name: "books_and_periodical_allowance_exemption"
+    when:
+      - get_field_value("employee.tax_regime") == "old"
+      - get_field_value("employee.books_and_periodical_allowance") > 0
+    then:
+      - set_value("books_and_periodical_allowance_exemption", get_field_value("employee.books_and_periodical_allowance"))
+    result: get_field_value("books_and_periodical_allowance_exemption")
+    result_collect:
+      - "total_tax_exemptions"
+    process_order: 2224
+
+  - rule_id: "IN-CHE-2025-EXE-001"
+    name: "children_education_allowance_exemption"
+    when:
+      - get_field_value("employee.tax_regime") == "old"
+      - get_field_value("employee.children_education_allowance") > 0
+      - get_field_value("employee.number_of_children") >= 1
+    then:
+      - set_value("eligible_children", min(get_field_value("employee.number_of_children"), 2))
+      - set_value("max_exemption_monthly", get_field_value("eligible_children") * 100)
+      - set_value("max_exemption_annual", get_field_value("max_exemption_monthly") * 12)
+      - set_value("children_education_allowance_exemption", min(get_field_value("employee.children_education_allowance"), get_field_value("max_exemption_annual")))
+    result: get_field_value("children_education_allowance_exemption")
+    result_collect:
+      - "total_tax_exemptions"
+    process_order: 2225
+
+  - rule_id: "IN-CHH-2025-EXE-001"
+    name: "children_hostel_allowance_exemption"
+    when:
+      - get_field_value("employee.tax_regime") == "old"
+      - get_field_value("employee.children_hostel_allowance") > 0
+      - get_field_value("employee.number_of_children") >= 1
+    then:
+      - set_value("eligible_children", min(get_field_value("employee.number_of_children"), 2))
+      - set_value("max_exemption_monthly", get_field_value("eligible_children") * 300)
+      - set_value("max_exemption_annual", get_field_value("max_exemption_monthly") * 12)
+      - set_value("children_hostel_allowance_exemption", min(get_field_value("employee.children_hostel_allowance"), get_field_value("max_exemption_annual")))
+    result: get_field_value("children_hostel_allowance_exemption")
+    result_collect:
+      - "total_tax_exemptions"
+    process_order: 2226
+
+  - rule_id: "IN-MOT-2025-EXE-001"
+    name: "motor_car_allowance_exemption"
+    when:
+      - get_field_value("employee.motor_car_allowance") > 0
+    then:
+      - set_value("engine_capacity_rate", 1800)
+      - set_value("chauffeur_rate", 900)
+      - set_value("monthly_perquisite", get_field_value("engine_capacity_rate") + get_field_value("chauffeur_rate"))
+      - set_value("annual_motor_perquisite", get_field_value("monthly_perquisite") * 12)
+      - set_value("motor_car_allowance_exemption", get_field_value("annual_motor_perquisite"))
+    result: get_field_value("motor_car_allowance_exemption")
+    result_collect:
+      - "total_tax_exemptions"
+    process_order: 2227
+
+  - rule_id: "IN-TRA-2025-EXE-001"
+    name: "transport_allowance_exemption_final"
+    when:
+      - get_field_value("employee.transport_allowance") > 0
+    then:
+      - set_value("transport_allowance_exemption_final", get_field_value("employee.transport_allowance"))
+    result: get_field_value("transport_allowance_exemption_final")
+    result_collect:
+      - "total_tax_exemptions"
+    process_order: 2228
+
+  - rule_id: "IN-INS-2025-EXE-001"
+    name: "insurance_allowance_exemption"
+    when:
+      - get_field_value("employee.insurance_allowance") > 0
+    then:
+      - set_value("insurance_allowance_exemption", get_field_value("employee.insurance_allowance"))
+    result: get_field_value("insurance_allowance_exemption")
+    result_collect:
+      - "total_tax_exemptions"
+    process_order: 2229
+
+  - rule_id: "IN-MEA-2025-EXE-001"
+    name: "meal_voucher_exemption"
+    when:
+      - get_field_value("employee.tax_regime") == "old"
+      - get_field_value("employee.meal_vouchers") > 0
+    then:
+      - set_value("working_days_annual", 22 * 12)
+      - set_value("meals_per_day", 2)
+      - set_value("max_exemption_per_meal", 50)
+      - set_value("max_annual_exemption", get_field_value("working_days_annual") * get_field_value("meals_per_day") * get_field_value("max_exemption_per_meal"))
+      - set_value("meal_voucher_exemption", min(get_field_value("employee.meal_vouchers"), get_field_value("max_annual_exemption")))
+    result: get_field_value("meal_voucher_exemption")
+    result_collect:
+      - "total_tax_exemptions"
+    process_order: 2230
+
+  - rule_id: "IN-OTH-2025-EXE-001"
+    name: "other_exemptions"
+    when:
+      - get_field_value("employee.other_allowance") > 0
+    then:
+      - set_value("other_exemptions", 0)
+    result: get_field_value("other_exemptions")
+    result_collect:
+      - "total_tax_exemptions"
+    process_order: 2235
+
+  - rule_id: "IN-COL-2025-EMIT-003"
+    name: "emit_total_tax_exemptions_collector"
+    when:
+      - get_field_value("employee.employment_type") == "salaried"
+    then:
+      - set_value("total_tax_exemptions", get_collector("total_tax_exemptions"))
+    result: get_field_value("total_tax_exemptions")
+    process_order: 2299
+
+# =============================================================================
+# PROFESSIONAL TAX RULES
+# =============================================================================
+professional_tax_rules:
+  - rule_id: "IN-PT-2025-PAID-001"
+    name: "professional_tax_paid"
+    when:
+      - get_field_value("employee.professional_tax_paid") > 0
+      - get_field_value("employee.employment_type") == "salaried"
+    then:
+      - set_value("professional_tax_paid", get_field_value("employee.professional_tax_paid"))
+    result: get_field_value("professional_tax_paid")
+    result_collect:
+      - "total_salary_deductions"
+    process_order: 3300
+
+  - rule_id: "IN-PT-2025-DED-001"
+    name: "professional_tax_deduction"
+    when:
+      - get_field_value("employee.professional_tax_paid") > 0
+      - get_field_value("employee.employment_type") == "salaried"
+    then:
+      - set_value("professional_tax_deduction", get_field_value("employee.professional_tax_paid"))
+    result: get_field_value("professional_tax_deduction")
+    result_collect:
+      - "total_tax_deductions"
+    process_order: 3350
+
+# =============================================================================
+# NPS AND PF CONTRIBUTION RULES
+# =============================================================================
+nps_pf_rules:
+  - rule_id: "IN-NPS-2025-EMP-001"
+    name: "section_80ccd1_employee_contribution"
+    when:
+      - get_field_value("employee.nps_employee_contribution") > 0
+    then:
+      - set_value("section_80ccd1_employee_contribution", get_field_value("employee.nps_employee_contribution"))
+    result: get_field_value("section_80ccd1_employee_contribution")
+    result_collect:
+      - "total_80c_deductions"
+      - "total_salary_deductions"
+    process_order: 4010
+
+  - rule_id: "IN-NPS-2025-EMP-002"
+    name: "section_80ccd2_employer_contribution"
+    when:
+      - get_field_value("employee.nps_employer_contribution") > 0
+    then:
+      - set_value("section_80ccd2_employer_contribution", get_field_value("employee.nps_employer_contribution"))
+    result: get_field_value("section_80ccd2_employer_contribution")
+    result_collect:
+      - "total_tax_deductions"
+    process_order: 4020
+
+  - rule_id: "IN-NPS-2025-ADD-001"
+    name: "section_80ccd1b_additional_nps"
+    when:
+      - get_field_value("employee.nps_additional_contribution") > 0
+    then:
+      - set_value("section_80ccd1b_additional_nps", min(get_field_value("employee.nps_additional_contribution"), 50000))
+    result: get_field_value("section_80ccd1b_additional_nps")
+    result_collect:
+      - "total_80c_deductions"
+      - "total_salary_deductions"
+      - "total_tax_deductions"
+      - "total_chapter_via_deductions"
+    process_order: 4030
+
+  - rule_id: "IN-EPF-2025-EMP-001"
+    name: "employee_pf_contribution_12_percent"
+    when:
+      - get_field_value("employee.employee_pf_contribution") > 0
+    then:
+      - set_value("employee_pf_contribution_12_percent", get_field_value("employee.employee_pf_contribution"))
+    result: get_field_value("employee_pf_contribution_12_percent")
+    result_collect:
+      - "total_80c_deductions"
+      - "total_salary_deductions"
+    process_order: 4110
+
+# =============================================================================
+# STANDARD DEDUCTION RULES
+# =============================================================================
+standard_deduction_rules:
+  - rule_id: "IN-STD-2025-DED-001"
+    name: "standard_deduction_old_regime"
+    when:
+      - get_field_value("employee.tax_regime") == "old"
+      - get_field_value("employee.employment_type") == "salaried"
+    then:
+      - set_value("standard_deduction_old_regime", min(50000, get_collector("gross_total_income")))
+    result: get_field_value("standard_deduction_old_regime")
+    process_order: 5010
+
+  - rule_id: "IN-STD-2025-DED-002"
+    name: "standard_deduction_new_regime"
+    when:
+      - get_field_value("employee.tax_regime") == "new"
+      - get_field_value("employee.employment_type") == "salaried"
+    then:
+      - set_value("standard_deduction_new_regime", min(75000, get_collector("gross_total_income")))
+    result: get_field_value("standard_deduction_new_regime")
+    process_order: 5020
+
+  - rule_id: "IN-STD-2025-DED-003"
+    name: "standard_deduction_final"
+    when:
+      - get_field_value("employee.employment_type") == "salaried"
+    then:
+      - set_value("standard_deduction_final", max((get_field_value("standard_deduction_old_regime") or 0), (get_field_value("standard_deduction_new_regime") or 0)))
+    result: get_field_value("standard_deduction_final")
+    result_collect:
+      - "total_tax_deductions"
+    process_order: 5050
+
+# =============================================================================
+# CHAPTER VIA DEDUCTION RULES
+# =============================================================================
+chapter_via_deduction_rules:
+  - rule_id: "IN-80C-2025-DED-001"
+    name: "section_80c_deduction"
+    when:
+      - get_field_value("employee.tax_regime") == "old"
+      - get_field_value("employee.section_80c_investments") > 0
+    then:
+      - set_value("section_80c_deduction", min(get_field_value("employee.section_80c_investments"), 150000))
+    result: get_field_value("section_80c_deduction")
+    process_order: 5500
+
+  - rule_id: "IN-80C-2025-EMIT-001"
+    name: "emit_total_80c_deductions_collector"
+    when:
+      - get_field_value("employee.tax_regime") == "old"
+    then:
+      - set_value("total_80c_deductions", get_collector("total_80c_deductions"))
+    result: get_field_value("total_80c_deductions")
+    process_order: 5599
+
+  - rule_id: "IN-80C-2025-DED-002"
+    name: "section_80c_deduction_final_value"
+    when:
+      - get_field_value("employee.tax_regime") == "old"
+    then:
+      - set_value("section_80c_deduction_final_value", min(get_collector("total_80c_deductions"), 150000))
+    result: get_field_value("section_80c_deduction_final_value")
+    result_collect:
+      - "total_tax_deductions"
+      - "total_chapter_via_deductions"
+    process_order: 5600
+
+  - rule_id: "IN-80D-2025-DED-001"
+    name: "section_80d_self_deduction_normal"
+    when:
+      - get_field_value("employee.tax_regime") == "old"
+      - get_field_value("employee.health_insurance_premium") > 0
+      - get_field_value("employee.age") < 60
+    then:
+      - set_value("section_80d_self_deduction", min(get_field_value("employee.health_insurance_premium"), 25000))
+    result: get_field_value("section_80d_self_deduction")
+    process_order: 5650
+
+  - rule_id: "IN-80D-2025-DED-002"
+    name: "section_80d_self_deduction_senior"
+    when:
+      - get_field_value("employee.tax_regime") == "old"
+      - get_field_value("employee.health_insurance_premium") > 0
+      - get_field_value("employee.age") >= 60
+    then:
+      - set_value("section_80d_self_deduction", min(get_field_value("employee.health_insurance_premium"), 50000))
+    result: get_field_value("section_80d_self_deduction")
+    process_order: 5651
+
+  - rule_id: "IN-80D-2025-DED-003"
+    name: "section_80d_parents_deduction_normal"
+    when:
+      - get_field_value("employee.tax_regime") == "old"
+      - get_field_value("employee.parents_premium") > 0
+      - get_field_value("employee.parent_age") < 60
+    then:
+      - set_value("section_80d_parents_deduction", min(get_field_value("employee.parents_premium"), 25000))
+    result: get_field_value("section_80d_parents_deduction")
+    process_order: 5652
+
+  - rule_id: "IN-80D-2025-DED-004"
+    name: "section_80d_parents_deduction_senior"
+    when:
+      - get_field_value("employee.tax_regime") == "old"
+      - get_field_value("employee.parents_premium") > 0
+      - get_field_value("employee.parent_age") >= 60
+    then:
+      - set_value("section_80d_parents_deduction", min(get_field_value("employee.parents_premium"), 50000))
+    result: get_field_value("section_80d_parents_deduction")
+    process_order: 5653
+
+  - rule_id: "IN-80D-2025-DED-005"
+    name: "section_80d_total_deduction"
+    when:
+      - get_field_value("employee.tax_regime") == "old"
+    then:
+      - set_value("section_80d_total_deduction", (get_field_value("section_80d_self_deduction") or 0) + (get_field_value("section_80d_parents_deduction") or 0))
+    result: get_field_value("section_80d_total_deduction")
+    result_collect:
+      - "total_tax_deductions"
+      - "total_chapter_via_deductions"
+    process_order: 5654
+
+  - rule_id: "IN-80U-2025-DED-001"
+    name: "section_80u_disability_normal"
+    when:
+      - get_field_value("employee.tax_regime") == "old"
+      - get_field_value("employee.disability_percentage") >= 40
+      - get_field_value("employee.disability_percentage") < 80
+    then:
+      - set_value("section_80u_dd_total", 75000)
+    result: get_field_value("section_80u_dd_total")
+    result_collect:
+      - "total_tax_deductions"
+      - "total_chapter_via_deductions"
+    process_order: 5680
+
+  - rule_id: "IN-80U-2025-DED-002"
+    name: "section_80u_disability_severe"
+    when:
+      - get_field_value("employee.tax_regime") == "old"
+      - get_field_value("employee.disability_percentage") >= 80
+    then:
+      - set_value("section_80u_dd_total", 125000)
+    result: get_field_value("section_80u_dd_total")
+    result_collect:
+      - "total_tax_deductions"
+      - "total_chapter_via_deductions"
+    process_order: 5681
+
+  - rule_id: "IN-80G-2025-DED-001"
+    name: "section_80g_deduction_total"
+    when:
+      - get_field_value("employee.tax_regime") == "old"
+      - get_field_value("employee.charitable_donations") > 0
+    then:
+      - set_value("section_80g_deduction_total", get_field_value("employee.charitable_donations"))
+    result: get_field_value("section_80g_deduction_total")
+    result_collect:
+      - "total_tax_deductions"
+      - "total_chapter_via_deductions"
+    process_order: 5690
+
+  - rule_id: "IN-80TTA-2025-DED-001"
+    name: "section_80tta_deduction_total"
+    when:
+      - get_field_value("employee.tax_regime") == "old"
+      - get_field_value("employee.savings_interest") > 0
+      - get_field_value("employee.age") < 60
+    then:
+      - set_value("section_80tta_deduction_total", min(get_field_value("employee.savings_interest"), 10000))
+    result: get_field_value("section_80tta_deduction_total")
+    result_collect:
+      - "total_tax_deductions"
+      - "total_chapter_via_deductions"
+    process_order: 5710
+
+  - rule_id: "IN-80TTB-2025-DED-001"
+    name: "section_80ttb_deduction_total"
+    when:
+      - get_field_value("employee.tax_regime") == "old"
+      - get_field_value("employee.savings_interest") > 0
+      - get_field_value("employee.age") >= 60
+    then:
+      - set_value("section_80ttb_deduction_total", min(get_field_value("employee.savings_interest"), 50000))
+    result: get_field_value("section_80ttb_deduction_total")
+    result_collect:
+      - "total_tax_deductions"
+      - "total_chapter_via_deductions"
+    process_order: 5720
+
+  - rule_id: "IN-24B-2025-DED-001"
+    name: "section_24b_deduction_total"
+    when:
+      - get_field_value("employee.home_loan_interest") > 0
+      - get_field_value("employee.property_type") == "self_occupied"
+    then:
+      - set_value("section_24b_deduction_total", min(get_field_value("employee.home_loan_interest"), 200000))
+    result: get_field_value("section_24b_deduction_total")
+    result_collect:
+      - "total_tax_deductions"
+      - "total_chapter_via_deductions"
+    process_order: 5730
+
+# =============================================================================
+# PENSION AND RETIREMENT RULES
+# =============================================================================
+pension_retirement_rules:
+  - rule_id: "IN-PENSION-2025-TAX-001"
+    name: "pension_income_taxation"
+    when:
+      - get_field_value("employee.family_pension") > 0
+    then:
+      - set_value("pension_taxable_amount", get_field_value("employee.family_pension"))
+    result: get_field_value("pension_taxable_amount")
+    result_collect:
+      - "gross_total_income"
+    process_order: 6010
+
+  - rule_id: "IN-FAM-2025-DED-001"
+    name: "family_pension_deduction_old"
+    when:
+      - get_field_value("employee.family_pension") > 0
+      - get_field_value("employee.tax_regime") == "old"
+    then:
+      - set_value("one_third_pension", get_field_value("employee.family_pension") * 0.3333)
+      - set_value("family_pension_deduction", min(get_field_value("one_third_pension"), 15000))
+    result: get_field_value("family_pension_deduction")
+    result_collect:
+      - "total_tax_deductions"
+    process_order: 6020
+
+  - rule_id: "IN-FAM-2025-DED-002"
+    name: "family_pension_deduction_new"
+    when:
+      - get_field_value("employee.family_pension") > 0
+      - get_field_value("employee.tax_regime") == "new"
+    then:
+      - set_value("one_third_pension", get_field_value("employee.family_pension") * 0.3333)
+      - set_value("family_pension_deduction", min(get_field_value("one_third_pension"), 25000))
+    result: get_field_value("family_pension_deduction")
+    result_collect:
+      - "total_tax_deductions"
+    process_order: 6021
+
+  - rule_id: "IN-GRATUITY-2025-EXE-001"
+    name: "gratuity_exemption_calculation"
+    when:
+      - get_field_value("employee.gratuity_received") > 0
+      - get_field_value("employee.receives_gratuity") == true
+    then:
+      - set_value("gratuity_formula_amount", (15/26) * get_field_value("employee.last_drawn_salary") * get_field_value("employee.service_years"))
+      - set_value("gratuity_exemption", min(get_field_value("employee.gratuity_received"), min(get_field_value("gratuity_formula_amount"), 2000000)))
+    result: get_field_value("gratuity_exemption")
+    result_collect:
+      - "total_tax_exemptions"
+    process_order: 6030
+
+  - rule_id: "IN-LEAVE-2025-EXE-001"
+    name: "leave_encashment_exemption"
+    when:
+      - get_field_value("employee.leave_encashment") > 0
+    then:
+      - set_value("ten_months_salary", get_field_value("employee.last_drawn_salary") * 10)
+      - set_value("leave_encashment_exemption", min(get_field_value("employee.leave_encashment"), min(get_field_value("ten_months_salary"), 2500000)))
+    result: get_field_value("leave_encashment_exemption")
+    result_collect:
+      - "total_tax_exemptions"
+    process_order: 6040
+
+  - rule_id: "IN-VRS-2025-EXE-001"
+    name: "vrs_compensation_exemption"
+    when:
+      - get_field_value("employee.vrs_compensation") > 0
+      - get_field_value("employee.voluntary_retirement") == true
+    then:
+      - set_value("vrs_exemption", min(get_field_value("employee.vrs_compensation"), 500000))
+      - set_value("vrs_taxable_amount", max(0, get_field_value("employee.vrs_compensation") - get_field_value("vrs_exemption")))
+    result: get_field_value("vrs_exemption")
+    result_collect:
+      - "total_tax_exemptions"
+    process_order: 6050
+
+# =============================================================================
+# CAPITAL GAINS RULES
+# =============================================================================
+capital_gains_rules:
+  - rule_id: "IN-LTCG-2025-TAX-001"
+    name: "long_term_capital_gains_taxation"
+    when:
+      - get_field_value("employee.ltcg_amount") > 0
+    then:
+      - set_value("ltcg_exemption_limit", 125000)
+      - set_value("ltcg_taxable", max(0, get_field_value("employee.ltcg_amount") - get_field_value("ltcg_exemption_limit")))
+      - set_value("ltcg_tax_rate", 0.125)
+      - set_value("ltcg_tax", get_field_value("ltcg_taxable") * get_field_value("ltcg_tax_rate"))
+    result: get_field_value("ltcg_tax")
+    process_order: 6100
+
+  - rule_id: "IN-STCG-2025-TAX-001"
+    name: "short_term_capital_gains_taxation"
+    when:
+      - get_field_value("employee.stcg_amount") > 0
+    then:
+      - set_value("stcg_tax_rate", 0.20)
+      - set_value("stcg_tax", get_field_value("employee.stcg_amount") * get_field_value("stcg_tax_rate"))
+    result: get_field_value("stcg_tax")
+    process_order: 6110
+
+  - rule_id: "IN-WIN-2025-TAX-001"
+    name: "winnings_from_games_taxation"
+    when:
+      - get_field_value("employee.games_winnings_amount") > 0
+    then:
+      - set_value("winnings_tax_rate", 0.30)
+      - set_value("winnings_tax", get_field_value("employee.games_winnings_amount") * get_field_value("winnings_tax_rate"))
+    result: get_field_value("winnings_tax")
+    process_order: 6120
+
+# =============================================================================
+# TAXABLE INCOME CALCULATION
+# =============================================================================
+taxable_income_rules:
+  - rule_id: "IN-COL-2025-EMIT-004"
+    name: "emit_total_chapter_via_tax_deductions_collector"
+    when:
+      - get_field_value("employee.tax_regime") == "old"
+    then:
+      - set_value("total_chapter_via_deductions", get_collector("total_chapter_via_deductions"))
+    result: get_field_value("total_chapter_via_deductions")
+    process_order: 5799
+
+  - rule_id: "IN-COL-2025-EMIT-005"
+    name: "emit_total_tax_deductions_collector"
+    when:
+      - get_field_value("employee.employment_type") == "salaried"
+    then:
+      - set_value("total_tax_deductions", get_collector("total_tax_deductions"))
+    result: get_field_value("total_tax_deductions")
+    process_order: 5999
+
+  - rule_id: "IN-TAX-2025-CALC-001"
+    name: "taxable_income_calculation"
+    when:
+      - get_field_value("employee.employment_type") == "salaried"
+    then:
+      - set_value("salary_income_after_exemptions", get_collector("gross_total_income") - get_collector("total_tax_exemptions"))
+      - set_value("taxable_income_calculation", max(0, get_field_value("salary_income_after_exemptions") - get_collector("total_tax_deductions")))
+    result: get_field_value("taxable_income_calculation")
+    process_order: 7000
+
+# =============================================================================
+# INCOME TAX CALCULATION RULES
+# =============================================================================
+income_tax_calculation_rules:
+  - rule_id: "IN-TAX-2025-SLAB-001"
+    name: "income_tax_before_rebate_final_normal"
+    when:
+      - get_field_value("employee.tax_regime") == "old"
+      - get_field_value("employee.age") < 60
+      - get_field_value("taxable_income_calculation") > 0
+    then:
+      - set_value("income_tax_before_rebate_final", apply_range_slab("IncomeTaxSlabOldRegimeNormal", get_field_value("taxable_income_calculation")))
+    result: get_field_value("income_tax_before_rebate_final")
+    process_order: 8200
+
+  - rule_id: "IN-TAX-2025-SLAB-002"
+    name: "income_tax_before_rebate_final_senior"
+    when:
+      - get_field_value("employee.tax_regime") == "old"
+      - get_field_value("employee.age") >= 60
+      - get_field_value("employee.age") < 80
+      - get_field_value("taxable_income_calculation") > 0
+    then:
+      - set_value("income_tax_before_rebate_final", apply_range_slab("IncomeTaxSlabOldRegimeSenior", get_field_value("taxable_income_calculation")))
+    result: get_field_value("income_tax_before_rebate_final")
+    process_order: 8201
+
+  - rule_id: "IN-TAX-2025-SLAB-003"
+    name: "income_tax_before_rebate_final_super"
+    when:
+      - get_field_value("employee.tax_regime") == "old"
+      - get_field_value("employee.age") >= 80
+      - get_field_value("taxable_income_calculation") > 0
+    then:
+      - set_value("income_tax_before_rebate_final", apply_range_slab("IncomeTaxSlabOldRegimeSuper", get_field_value("taxable_income_calculation")))
+    result: get_field_value("income_tax_before_rebate_final")
+    process_order: 8202
+
+  - rule_id: "IN-TAX-2025-SLAB-004"
+    name: "income_tax_before_rebate_final_new_2025"
+    when:
+      - get_field_value("employee.tax_regime") == "new"
+      - get_field_value("payroll.assessment_year") == "2025-26"
+      - get_field_value("taxable_income_calculation") > 0
+    then:
+      - set_value("income_tax_before_rebate_final", apply_range_slab("IncomeTaxSlabNewRegime2025", get_field_value("taxable_income_calculation")))
+    result: get_field_value("income_tax_before_rebate_final")
+    process_order: 8203
+
+  - rule_id: "IN-TAX-2025-SLAB-005"
+    name: "income_tax_before_rebate_final_new_2026"
+    when:
+      - get_field_value("employee.tax_regime") == "new"
+      - get_field_value("payroll.assessment_year") == "2026-27"
+      - get_field_value("taxable_income_calculation") > 0
+    then:
+      - set_value("income_tax_before_rebate_final", apply_range_slab("IncomeTaxSlabNewRegime2026", get_field_value("taxable_income_calculation")))
+    result: get_field_value("income_tax_before_rebate_final")
+    process_order: 8204
+
+# =============================================================================
+# REBATE CALCULATION RULES
+# =============================================================================
+rebate_rules:
+  - rule_id: "IN-87A-2025-REB-001"
+    name: "rebate_87a_final_old"
+    when:
+      - get_field_value("employee.tax_regime") == "old"
+      - get_field_value("taxable_income_calculation") <= 500000
+      - get_field_value("income_tax_before_rebate_final") > 0
+    then:
+      - set_value("rebate_87a_final", min(get_field_value("income_tax_before_rebate_final"), 12500))
+    result: get_field_value("rebate_87a_final")
+    process_order: 8300
+
+  - rule_id: "IN-87A-2025-REB-002"
+    name: "rebate_87a_final_new_2025"
+    when:
+      - get_field_value("employee.tax_regime") == "new"
+      - get_field_value("payroll.assessment_year") == "2025-26"
+      - get_field_value("taxable_income_calculation") <= 700000
+      - get_field_value("income_tax_before_rebate_final") > 0
+    then:
+      - set_value("rebate_87a_final", min(get_field_value("income_tax_before_rebate_final"), 25000))
+    result: get_field_value("rebate_87a_final")
+    process_order: 8301
+
+  - rule_id: "IN-87A-2025-REB-003"
+    name: "rebate_87a_final_new_2026"
+    when:
+      - get_field_value("employee.tax_regime") == "new"
+      - get_field_value("payroll.assessment_year") == "2026-27"
+      - get_field_value("taxable_income_calculation") <= 1200000
+      - get_field_value("income_tax_before_rebate_final") > 0
+    then:
+      - set_value("rebate_87a_final", min(get_field_value("income_tax_before_rebate_final"), 60000))
+    result: get_field_value("rebate_87a_final")
+    process_order: 8302
+
+  - rule_id: "IN-TAX-2025-AFT-REB-001"
+    name: "tax_after_rebate"
+    when:
+      - get_field_value("income_tax_before_rebate_final") > 0
+    then:
+      - set_value("tax_after_rebate", get_field_value("income_tax_before_rebate_final") - (get_field_value("rebate_87a_final") or 0))
+    result: get_field_value("tax_after_rebate")
+    process_order: 8400
+
+# =============================================================================
+# SURCHARGE CALCULATION RULES
+# =============================================================================
+surcharge_rules:
+  - rule_id: "IN-SUR-2025-CALC-001"
+    name: "surcharge_calculation_final_old"
+    when:
+      - get_field_value("employee.tax_regime") == "old"
+      - get_field_value("tax_after_rebate") > 0
+    then:
+      - set_value("surcharge_rate", get_range_slab("SurchargeSlabOldRegime", get_field_value("taxable_income_calculation")))
+      - set_value("surcharge_calculation_final", get_field_value("tax_after_rebate") * get_field_value("surcharge_rate"))
+    result: get_field_value("surcharge_calculation_final")
+    process_order: 8500
+
+  - rule_id: "IN-SUR-2025-CALC-002"
+    name: "surcharge_calculation_final_new"
+    when:
+      - get_field_value("employee.tax_regime") == "new"
+      - get_field_value("tax_after_rebate") > 0
+    then:
+      - set_value("surcharge_rate", get_range_slab("SurchargeSlabNewRegime", get_field_value("taxable_income_calculation")))
+      - set_value("surcharge_calculation_final", get_field_value("tax_after_rebate") * get_field_value("surcharge_rate"))
+    result: get_field_value("surcharge_calculation_final")
+    process_order: 8501
+
+  - rule_id: "IN-TAX-2025-WITH-SUR-001"
+    name: "tax_with_surcharge_final"
+    when:
+      - get_field_value("tax_after_rebate") > 0
+    then:
+      - set_value("tax_with_surcharge_final", get_field_value("tax_after_rebate") + (get_field_value("surcharge_calculation_final") or 0))
+    result: get_field_value("tax_with_surcharge_final")
+    process_order: 8600
+
+# =============================================================================
+# CESS CALCULATION RULES
+# =============================================================================
+cess_rules:
+  - rule_id: "IN-CESS-2025-CALC-001"
+    name: "health_education_cess"
+    when:
+      - get_field_value("tax_with_surcharge_final") > 0
+    then:
+      - set_value("health_education_cess", get_field_value("tax_with_surcharge_final") * 0.04)
+    result: get_field_value("health_education_cess")
+    process_order: 8700
+
+# =============================================================================
+# FINAL TAX LIABILITY CALCULATION
+# =============================================================================
+final_tax_rules:
+  - rule_id: "IN-TAX-2025-TOTAL-001"
+    name: "total_income_tax"
+    when:
+      - get_field_value("tax_with_surcharge_final") > 0
+    then:
+      - set_value("special_income_taxes", (get_field_value("ltcg_tax") or 0) + (get_field_value("stcg_tax") or 0) + (get_field_value("winnings_tax") or 0))
+      - set_value("total_income_tax", get_field_value("tax_with_surcharge_final") + get_field_value("health_education_cess") + get_field_value("special_income_taxes"))
+    result: get_field_value("total_income_tax")
+    result_collect:
+      - "total_salary_deductions"
+    process_order: 8800
+
+  - rule_id: "IN-TDS-2025-MONTHLY-001"
+    name: "monthly_tds_calculation"
+    when:
+      - get_field_value("total_income_tax") > 0
+      - get_field_value("payroll.period_type") == "monthly"
+    then:
+      - set_value("months_remaining", 12)
+      - set_value("monthly_tds_calculation", get_field_value("total_income_tax") / get_field_value("months_remaining"))
+    result: get_field_value("monthly_tds_calculation")
+    process_order: 8900
+
+  - rule_id: "IN-COL-2025-EMIT-006"
+    name: "emit_total_salary_deductions_collector"
+    when:
+      - get_field_value("employee.employment_type") == "salaried"
+    then:
+      - set_value("total_salary_deductions_final", get_collector("total_salary_deductions"))
+    result: get_field_value("total_salary_deductions_final")
+    process_order: 8999
+
+# =============================================================================
+# NET SALARY CALCULATION
+# =============================================================================
+net_salary_rules:
+  - rule_id: "IN-NET-2025-CALC-001"
+    name: "net_salary_calculation"
+    when:
+      - get_field_value("employee.employment_type") == "salaried"
+    then:
+      - set_value("total_gross_earnings", get_collector("gross_total_income"))
+      - set_value("net_salary_calculation", get_field_value("total_gross_earnings") - get_collector("total_salary_deductions"))
+    result: get_field_value("net_salary_calculation")
+    process_order: 9000

@@ -1,0 +1,4 @@
+ID,previous_tax_regime,new_tax_regime,revision_date,revision_reason
+EMP030,new,old,2025-12-01,Switching to old regime for better tax benefits
+EMP025,old,new,2025-12-01,Switching to new regime for simplicity
+

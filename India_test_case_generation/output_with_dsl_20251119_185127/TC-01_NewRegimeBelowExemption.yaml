@@ -1,0 +1,257 @@
+metadata:
+  type: "test_case"
+  version: "2025-26"
+  jurisdiction: "IN"
+  effective_date: "2025-04-01"
+  description: "Test Case TC-01: New Regime - Below Exemption Limit"
+  test_case_id: "TC-01"
+  scenario_name: "NewRegimeBelowExemption"
+  assessment_year: "2025-26"
+  
+rules_applied:
+  - "IN-IT-SLAB-NEW-2025-001"  # New regime tax slab for AY 2025-26
+  - "IN-87A-2025-REB-002"       # Section 87A rebate for new regime (up to 7L)
+  - "IN-STD-2025-DED-002"       # Standard deduction new regime (75K)
+  - "IN-CON-2025-EXE-001"       # Conveyance allowance exemption
+  - "IN-SAL-2025-COMP-001"      # Basic salary computation
+  - "IN-SAL-2025-COMP-002"      # Gross salary computation
+  - "IN-TAX-2025-CALC-001"      # Taxable income calculation
+  - "IN-TAX-2025-SLAB-004"      # Income tax calculation - new regime 2025
+  - "IN-CESS-2025-CALC-001"     # Health and education cess calculation
+  - "IN-NET-2025-CALC-001"      # Net salary calculation
+
+employee_profile:
+  personal_details:
+    employee_id: "EMP001"
+    first_name: "Raj"
+    last_name: "Kumar Sharma"
+    age: 28
+    date_of_birth: "1997-04-15"
+    gender: "Male"
+    pan: "ABCDE1234F"
+    
+  location:
+    state: "Maharashtra"
+    city: "Pune"
+    city_type: "Non-Metro"
+    residency: "IN"
+    
+  employment_details:
+    employment_type: "salaried"
+    employment_status: "active"
+    employer_type: "private"
+    date_of_joining: "2020-04-01"
+    service_years: 5
+    
+  tax_regime: "new"  # New tax regime selected
+
+income_components:
+  salary:
+    annual_ctc: 600000
+    gross_salary: 600000
+    basic_salary: 300000
+    hra_received: 120000
+    special_allowance: 150000
+    conveyance_allowance: 19200  # ₹1,600 per month
+    transport_allowance: 0
+    lta_received: 0
+    meal_vouchers: 0
+    other_allowances: 0
+    
+  bonuses:
+    annual_bonus: 0
+    commission: 0
+    performance_bonus: 0
+    
+  deductions:
+    employee_pf_contribution: 36000  # 12% of basic (₹300,000)
+    employer_pf_contribution: 36000  # 12% of basic
+    professional_tax_paid: 2400  # ₹200 per month
+    
+  investments_declarations:
+    section_80c_investments: 0  # Not applicable in new regime
+    nps_employee_contribution: 0
+    nps_employer_contribution: 0
+    nps_additional_contribution: 0
+    health_insurance_premium: 0
+    life_insurance_premium: 0
+    
+  other_income:
+    income_from_other_sources: 0
+    rental_income: 0
+    capital_gains: 0
+
+# ==============================================================================
+# EXPECTED RESULTS WITH STEP-BY-STEP CALCULATIONS
+# ==============================================================================
+
+expected_results:
+  # Step 1: Gross Total Income Calculation
+  # Rule: IN-SAL-2025-COMP-002
+  gross_total_income_calculation:
+    basic_salary: 300000
+    hra_received: 120000
+    special_allowance: 150000
+    conveyance_allowance: 19200
+    other_components: 0
+    total_gross_income: 600000  # Sum of all salary components
+    rule_id: "IN-SAL-2025-COMP-002"
+    
+  # Step 2: Exemptions Calculation (New Regime - Limited Exemptions)
+  # Rule: IN-CON-2025-EXE-001
+  exemptions_calculation:
+    conveyance_allowance_exemption: 19200  # Fully exempt (common for both regimes)
+    hra_exemption: 0  # Not available in new regime
+    lta_exemption: 0
+    transport_allowance_exemption: 0
+    meal_voucher_exemption: 0
+    other_exemptions: 0
+    total_exemptions: 19200
+    rule_id: "IN-CON-2025-EXE-001"
+    
+  # Step 3: Income After Exemptions
+  income_after_exemptions:
+    gross_income: 600000
+    less_exemptions: 19200
+    income_after_exemptions: 580800  # 600,000 - 19,200
+    
+  # Step 4: Deductions (New Regime)
+  # Rule: IN-STD-2025-DED-002
+  deductions_calculation:
+    standard_deduction: 75000  # New regime standard deduction
+    professional_tax: 0  # Not deductible separately (part of salary deductions)
+    chapter_via_deductions: 0  # Not available in new regime (no 80C, 80D, etc.)
+    total_deductions: 75000
+    rule_id: "IN-STD-2025-DED-002"
+    
+  # Step 5: Taxable Income Calculation
+  # Rule: IN-TAX-2025-CALC-001
+  taxable_income_calculation:
+    income_after_exemptions: 580800
+    less_deductions: 75000
+    taxable_income: 505800  # 580,800 - 75,000
+    rule_id: "IN-TAX-2025-CALC-001"
+    
+  # Step 6: Tax Calculation using New Regime Slabs (AY 2025-26)
+  # Rule: IN-IT-SLAB-NEW-2025-001
+  # Slab Structure:
+  #   0 - 3,00,000: 0%
+  #   3,00,001 - 7,00,000: 5%
+  #   7,00,001 - 10,00,000: 10%
+  #   10,00,001 - 12,00,000: 15%
+  #   12,00,001 - 15,00,000: 20%
+  #   Above 15,00,000: 30%
+  tax_calculation:
+    taxable_income: 505800
+    slab_1_0_to_300000:
+      range: "0 to 300000"
+      rate: 0.00
+      applicable_income: 300000
+      tax: 0  # 300,000 × 0% = 0
+    slab_2_300001_to_700000:
+      range: "300001 to 700000"
+      rate: 0.05
+      applicable_income: 205800  # 505,800 - 300,000 = 205,800
+      tax: 10290  # 205,800 × 5% = 10,290
+    slab_3_700001_to_1000000:
+      range: "700001 to 1000000"
+      rate: 0.10
+      applicable_income: 0
+      tax: 0
+    higher_slabs:
+      applicable: false
+      tax: 0
+    total_tax_before_rebate: 10290  # Sum of all slab taxes
+    rule_id: "IN-IT-SLAB-NEW-2025-001"
+    
+  # Step 7: Rebate under Section 87A (New Regime)
+  # Rule: IN-87A-2025-REB-002
+  # Rebate available if taxable income <= 7,00,000 in new regime
+  # Maximum rebate: ₹25,000
+  rebate_calculation:
+    taxable_income: 505800
+    rebate_threshold: 700000  # ₹7 lakh for new regime in AY 2025-26
+    eligible_for_rebate: true  # 505,800 <= 700,000
+    tax_before_rebate: 10290
+    maximum_rebate: 25000
+    actual_rebate: 10290  # min(10,290, 25,000) = 10,290
+    tax_after_rebate: 0  # 10,290 - 10,290 = 0
+    rule_id: "IN-87A-2025-REB-002"
+    
+  # Step 8: Surcharge Calculation
+  # Rule: IN-SUR-2025-CALC-002
+  # Surcharge applicable only if income > 50 lakh
+  surcharge_calculation:
+    taxable_income: 505800
+    surcharge_threshold: 5000000  # ₹50 lakh
+    surcharge_applicable: false  # 505,800 < 5,000,000
+    surcharge_rate: 0.00
+    surcharge_amount: 0
+    tax_with_surcharge: 0  # 0 + 0 = 0
+    rule_id: "IN-SUR-2025-CALC-002"
+    
+  # Step 9: Health and Education Cess
+  # Rule: IN-CESS-2025-CALC-001
+  # Cess = 4% of (Tax + Surcharge)
+  cess_calculation:
+    tax_with_surcharge: 0
+    cess_rate: 0.04
+    cess_amount: 0  # 0 × 4% = 0
+    rule_id: "IN-CESS-2025-CALC-001"
+    
+  # Step 10: Total Tax Liability
+  # Rule: IN-TAX-2025-TOTAL-001
+  total_tax_liability:
+    base_tax: 10290
+    less_rebate: 10290
+    tax_after_rebate: 0
+    add_surcharge: 0
+    tax_with_surcharge: 0
+    add_cess: 0
+    total_tax_liability: 0  # Final tax liability
+    rule_id: "IN-TAX-2025-TOTAL-001"
+    
+  # Step 11: Monthly TDS Calculation
+  # Rule: IN-TDS-2025-MONTHLY-001
+  monthly_tds_calculation:
+    annual_tax_liability: 0
+    months_in_year: 12
+    monthly_tds: 0  # 0 ÷ 12 = 0
+    rule_id: "IN-TDS-2025-MONTHLY-001"
+    
+  # Step 12: Net Salary Calculation
+  # Rule: IN-NET-2025-CALC-001
+  net_salary_calculation:
+    gross_salary_annual: 600000
+    less_employee_pf: 36000
+    less_professional_tax: 2400
+    less_tds: 0
+    net_salary_annual: 561600  # 600,000 - 36,000 - 2,400 - 0 = 561,600
+    net_salary_monthly: 46800  # 561,600 ÷ 12 = 46,800
+    rule_id: "IN-NET-2025-CALC-001"
+
+# ==============================================================================
+# SUMMARY
+# ==============================================================================
+
+summary:
+  test_case: "TC-01"
+  scenario: "New Regime - Below Exemption Limit"
+  employee: "Raj Kumar Sharma (EMP001)"
+  tax_regime: "New"
+  gross_income: 600000
+  taxable_income: 505800
+  tax_before_rebate: 10290
+  rebate_87a: 10290
+  final_tax_liability: 0
+  monthly_tds: 0
+  net_annual_salary: 561600
+  key_validations:
+    - "New regime tax slab applied correctly"
+    - "Standard deduction of ₹75,000 applied"
+    - "Conveyance allowance fully exempt (₹19,200)"
+    - "Section 87A rebate fully applied (taxable income below ₹7L threshold)"
+    - "No Chapter VIA deductions in new regime"
+    - "Final tax liability is zero due to rebate"
+  status: "Pass"
+

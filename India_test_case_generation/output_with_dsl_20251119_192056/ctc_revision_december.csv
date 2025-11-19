@@ -1,0 +1,5 @@
+ID,revised_annual_ctc,revised_basic_salary,revised_gross_salary,revised_hra_received,revised_special_allowance,revision_date,revision_reason
+EMP002,1920000,768000,1600000,307200,524800,2025-12-01,Performance increment
+EMP015,1920000,768000,1600000,307200,524800,2025-12-01,Promotion
+EMP032,1560000,624000,1300000,249600,426400,2025-12-01,Annual increment
+

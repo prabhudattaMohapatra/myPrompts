@@ -1,0 +1,362 @@
+metadata:
+  type: "test_case"
+  version: "2025-26"
+  jurisdiction: "IN"
+  effective_date: "2025-04-01"
+  description: "Test Case TC-06: Old Regime - Multiple Deductions and Exemptions"
+  test_case_id: "TC-06"
+  scenario_name: "OldRegimeMultipleDeductions"
+  assessment_year: "2025-26"
+  
+rules_applied:
+  - "IN-IT-SLAB-OLD-NORMAL-001"  # Old regime tax slab for normal taxpayers
+  - "IN-87A-2025-REB-001"        # Section 87A rebate for old regime (up to 5L)
+  - "IN-STD-2025-DED-001"        # Standard deduction old regime (50K)
+  - "IN-HRA-2025-EXE-001"        # HRA exemption - metro city
+  - "IN-TRA-2025-EXE-001"        # Transport allowance exemption
+  - "IN-MEA-2025-EXE-001"        # Meal voucher exemption
+  - "IN-CHE-2025-EXE-001"        # Children education allowance exemption
+  - "IN-CHH-2025-EXE-001"        # Children hostel allowance exemption
+  - "IN-BOO-2025-EXE-001"        # Books and periodical allowance exemption
+  - "IN-TEL-2025-EXE-001"        # Telephone reimbursement exemption
+  - "IN-80C-2025-DED-001"        # Section 80C deduction
+  - "IN-80C-2025-DED-002"        # Section 80C final deduction value
+  - "IN-NPS-2025-EMP-001"        # NPS employee contribution (80CCD1)
+  - "IN-NPS-2025-EMP-002"        # NPS employer contribution (80CCD2)
+  - "IN-80D-2025-DED-001"        # Section 80D self deduction (normal)
+  - "IN-80D-2025-DED-003"        # Section 80D parents deduction (normal)
+  - "IN-80D-2025-DED-005"        # Section 80D total deduction
+  - "IN-80G-2025-DED-001"        # Section 80G donations deduction
+  - "IN-80TTA-2025-DED-001"      # Section 80TTA savings interest deduction
+  - "IN-PT-2025-DED-001"         # Professional tax deduction
+  - "IN-EPF-2025-EMP-001"        # EPF employee contribution
+  - "IN-TAX-2025-CALC-001"       # Taxable income calculation
+  - "IN-TAX-2025-SLAB-001"       # Income tax calculation - old regime normal
+  - "IN-CESS-2025-CALC-001"      # Health and education cess calculation
+  - "IN-NET-2025-CALC-001"       # Net salary calculation
+
+employee_profile:
+  personal_details:
+    employee_id: "EMP006"
+    first_name: "Anjali"
+    last_name: "Mehta"
+    age: 30
+    date_of_birth: "1995-05-18"
+    gender: "Female"
+    pan: "BCDEF2345G"
+    
+  family_details:
+    number_of_children: 1
+    parent_age: 57
+    
+  location:
+    state: "Maharashtra"
+    city: "Mumbai"
+    city_type: "Metro"
+    residency: "IN"
+    
+  employment_details:
+    employment_type: "salaried"
+    employment_status: "active"
+    employer_type: "private"
+    date_of_joining: "2019-04-01"
+    service_years: 6
+    
+  tax_regime: "old"  # Old tax regime selected
+
+income_components:
+  salary:
+    annual_ctc: 1000000
+    gross_salary: 1000000
+    basic_salary: 500000
+    hra_received: 200000
+    special_allowance: 250000
+    transport_allowance: 19200  # ₹1,600 per month
+    meal_vouchers: 26400  # ₹2,200 per month
+    lta_received: 30000
+    children_education_allowance: 1200  # ₹100 per month per child
+    children_hostel_allowance: 3600  # ₹300 per month per child
+    books_and_periodical_allowance: 10000
+    telephone_reimbursement: 6000
+    
+  bonuses:
+    annual_bonus: 0
+    commission: 0
+    
+  housing:
+    rent_paid: 150000  # ₹12,500 per month
+    owns_house_in_work_city: false
+    
+  deductions:
+    employee_pf_contribution: 60000  # 12% of basic
+    employer_pf_contribution: 60000
+    professional_tax_paid: 2400  # ₹200 per month
+    
+  investments_declarations:
+    section_80c_investments: 100000  # PPF, LIC, ELSS, etc.
+    nps_employee_contribution: 20000  # Additional 80CCD(1)
+    nps_employer_contribution: 50000  # 80CCD(2)
+    self_family_premium: 20000  # Health insurance self+family
+    parents_premium: 15000  # Health insurance parents
+    life_insurance_premium: 30000  # Part of 80C
+    charitable_donations: 25000  # Section 80G
+    savings_interest: 9000  # Section 80TTA
+    
+  other_income:
+    income_from_other_sources: 0
+
+# ==============================================================================
+# EXPECTED RESULTS WITH STEP-BY-STEP CALCULATIONS
+# ==============================================================================
+
+expected_results:
+  # Step 1: Gross Total Income Calculation
+  gross_total_income_calculation:
+    basic_salary: 500000
+    hra_received: 200000
+    special_allowance: 250000
+    transport_allowance: 19200
+    meal_vouchers: 26400
+    lta_received: 30000
+    children_education_allowance: 1200
+    children_hostel_allowance: 3600
+    books_and_periodical_allowance: 10000
+    telephone_reimbursement: 6000
+    total_gross_income: 1000000
+    rule_id: "IN-SAL-2025-COMP-002"
+    
+  # Step 2: Exemptions Calculation (Old Regime - Comprehensive)
+  exemptions_calculation:
+    # HRA Exemption (Metro City - Rule: IN-HRA-2025-EXE-001)
+    hra_exemption:
+      hra_received: 200000
+      rent_paid: 150000
+      basic_salary: 500000
+      calculation_1_actual_hra: 200000
+      calculation_2_rent_minus_10percent_basic: 100000  # 150,000 - (10% × 500,000) = 100,000
+      calculation_3_50percent_basic_metro: 250000  # 50% × 500,000 = 250,000
+      hra_exemption: 100000  # min(200000, 100000, 250000) = 100,000 (Rule: IN-HRA-2025-EXE-001)
+    
+    # Transport Allowance Exemption (Rule: IN-TRA-2025-EXE-001)
+    transport_allowance_exemption: 19200  # Fully exempt
+    
+    # Meal Voucher Exemption (Rule: IN-MEA-2025-EXE-001)
+    meal_voucher_exemption:
+      meal_vouchers_received: 26400
+      working_days_annual: 264  # 22 days × 12 months
+      meals_per_day: 2
+      max_per_meal: 50
+      max_annual_exemption: 26400  # 264 × 2 × 50 = 26,400
+      actual_exemption: 26400  # min(26400, 26400) = 26,400
+      rule_id: "IN-MEA-2025-EXE-001"
+    
+    # LTA Exemption (Rule: IN-LTA-2025-REC-001)
+    lta_exemption: 30000  # Fully exempt (assumed actual travel)
+    
+    # Children Education Allowance (Rule: IN-CHE-2025-EXE-001)
+    children_education_exemption:
+      number_of_children: 1
+      eligible_children: 1  # min(1, 2)
+      max_per_child_monthly: 100
+      max_per_child_annual: 1200
+      total_exemption: 1200  # 1 × 1200 = 1,200
+      rule_id: "IN-CHE-2025-EXE-001"
+    
+    # Children Hostel Allowance (Rule: IN-CHH-2025-EXE-001)
+    children_hostel_exemption:
+      number_of_children: 1
+      eligible_children: 1
+      max_per_child_monthly: 300
+      max_per_child_annual: 3600
+      total_exemption: 3600  # 1 × 3600 = 3,600
+      rule_id: "IN-CHH-2025-EXE-001"
+    
+    # Books and Periodical Allowance (Rule: IN-BOO-2025-EXE-001)
+    books_periodical_exemption: 10000  # Fully exempt (old regime only)
+    
+    # Telephone Reimbursement (Rule: IN-TEL-2025-EXE-001)
+    telephone_exemption: 6000  # Fully exempt
+    
+    # Total Exemptions
+    total_exemptions: 196200  # Sum: 100,000 + 19,200 + 26,400 + 30,000 + 1,200 + 3,600 + 10,000 + 6,000
+    
+  # Step 3: Income After Exemptions
+  income_after_exemptions:
+    gross_income: 1000000
+    less_exemptions: 196200
+    income_after_exemptions: 803800  # 1,000,000 - 196,200
+    
+  # Step 4: Deductions (Old Regime)
+  deductions_calculation:
+    # Standard Deduction (Rule: IN-STD-2025-DED-001)
+    standard_deduction: 50000  # Old regime standard deduction
+    
+    # Professional Tax (Rule: IN-PT-2025-DED-001)
+    professional_tax: 2400
+    
+    # Section 80C Deductions
+    section_80c_components:
+      section_80c_investments: 100000
+      employee_pf_contribution: 60000  # Rule: IN-EPF-2025-EMP-001
+      nps_employee_contribution: 20000  # Rule: IN-NPS-2025-EMP-001
+      life_insurance_premium: 30000
+      total_80c_eligible: 210000  # Sum of all components
+      maximum_80c_limit: 150000
+      actual_80c_deduction: 150000  # min(210000, 150000) = 150,000
+      rule_id: "IN-80C-2025-DED-002"
+    
+    # NPS Employer Contribution (Rule: IN-NPS-2025-EMP-002)
+    section_80ccd2_employer_nps: 50000  # Deductible up to 10% of basic (max 500000)
+    
+    # Section 80D - Health Insurance
+    section_80d_deduction:
+      self_family_premium: 20000
+      parents_premium: 15000
+      employee_age: 30  # < 60, normal limit
+      parent_age: 57  # < 60, normal limit
+      self_limit: 25000
+      parents_limit: 25000
+      self_deduction: 20000  # min(20000, 25000) = 20,000 (Rule: IN-80D-2025-DED-001)
+      parents_deduction: 15000  # min(15000, 25000) = 15,000 (Rule: IN-80D-2025-DED-003)
+      total_80d_deduction: 35000  # 20,000 + 15,000 (Rule: IN-80D-2025-DED-005)
+    
+    # Section 80G - Donations (Rule: IN-80G-2025-DED-001)
+    section_80g_donations: 25000  # Eligible donations
+    
+    # Section 80TTA - Savings Interest (Rule: IN-80TTA-2025-DED-001)
+    section_80tta_interest:
+      savings_interest: 9000
+      age: 30  # < 60, so 80TTA applicable
+      maximum_limit: 10000
+      actual_deduction: 9000  # min(9000, 10000) = 9,000
+      rule_id: "IN-80TTA-2025-DED-001"
+    
+    # Total Deductions
+    total_deductions: 321400  # 50,000 + 2,400 + 150,000 + 50,000 + 35,000 + 25,000 + 9,000
+    
+  # Step 5: Taxable Income Calculation
+  taxable_income_calculation:
+    income_after_exemptions: 803800
+    less_deductions: 321400
+    taxable_income: 482400  # 803,800 - 321,400 (rounded to nearest hundred)
+    rule_id: "IN-TAX-2025-CALC-001"
+    
+  # Step 6: Tax Calculation using Old Regime Slabs (Normal Taxpayer)
+  # Rule: IN-IT-SLAB-OLD-NORMAL-001
+  # Slab Structure:
+  #   0 - 2,50,000: 0%
+  #   2,50,001 - 5,00,000: 5%
+  #   5,00,001 - 10,00,000: 20%
+  #   Above 10,00,000: 30%
+  tax_calculation:
+    taxable_income: 482400
+    slab_1_0_to_250000:
+      range: "0 to 250000"
+      rate: 0.00
+      applicable_income: 250000
+      tax: 0  # 250,000 × 0% = 0
+    slab_2_250001_to_500000:
+      range: "250001 to 500000"
+      rate: 0.05
+      applicable_income: 232400  # 482,400 - 250,000 = 232,400
+      tax: 11620  # 232,400 × 5% = 11,620
+    slab_3_500001_to_1000000:
+      range: "500001 to 1000000"
+      rate: 0.20
+      applicable_income: 0
+      tax: 0
+    higher_slabs:
+      applicable: false
+      tax: 0
+    total_tax_before_rebate: 11620  # Sum of all slab taxes
+    rule_id: "IN-IT-SLAB-OLD-NORMAL-001"
+    
+  # Step 7: Rebate under Section 87A (Old Regime)
+  # Rule: IN-87A-2025-REB-001
+  # Rebate available if taxable income <= 5,00,000 in old regime
+  # Maximum rebate: ₹12,500
+  rebate_calculation:
+    taxable_income: 482400
+    rebate_threshold: 500000  # ₹5 lakh for old regime
+    eligible_for_rebate: true  # 482,400 <= 500,000
+    tax_before_rebate: 11620
+    maximum_rebate: 12500
+    actual_rebate: 11620  # min(11,620, 12,500) = 11,620
+    tax_after_rebate: 0  # 11,620 - 11,620 = 0
+    rule_id: "IN-87A-2025-REB-001"
+    
+  # Step 8: Surcharge Calculation
+  surcharge_calculation:
+    taxable_income: 482400
+    surcharge_applicable: false  # Income < 50 lakh
+    surcharge_amount: 0
+    tax_with_surcharge: 0
+    rule_id: "IN-SUR-2025-CALC-001"
+    
+  # Step 9: Health and Education Cess
+  cess_calculation:
+    tax_with_surcharge: 0
+    cess_rate: 0.04
+    cess_amount: 0  # 0 × 4% = 0
+    rule_id: "IN-CESS-2025-CALC-001"
+    
+  # Step 10: Total Tax Liability
+  total_tax_liability:
+    base_tax: 11620
+    less_rebate: 11620
+    tax_after_rebate: 0
+    add_surcharge: 0
+    tax_with_surcharge: 0
+    add_cess: 0
+    total_tax_liability: 0  # Final tax liability
+    rule_id: "IN-TAX-2025-TOTAL-001"
+    
+  # Step 11: Monthly TDS Calculation
+  monthly_tds_calculation:
+    annual_tax_liability: 0
+    months_in_year: 12
+    monthly_tds: 0  # 0 ÷ 12 = 0
+    rule_id: "IN-TDS-2025-MONTHLY-001"
+    
+  # Step 12: Net Salary Calculation
+  net_salary_calculation:
+    gross_salary_annual: 1000000
+    less_employee_pf: 60000
+    less_professional_tax: 2400
+    less_tds: 0
+    net_salary_annual: 937600  # 1,000,000 - 60,000 - 2,400 - 0 = 937,600
+    net_salary_monthly: 78133  # 937,600 ÷ 12 ≈ 78,133
+    rule_id: "IN-NET-2025-CALC-001"
+
+# ==============================================================================
+# SUMMARY
+# ==============================================================================
+
+summary:
+  test_case: "TC-06"
+  scenario: "Old Regime - Multiple Deductions and Exemptions"
+  employee: "Anjali Mehta (EMP006)"
+  tax_regime: "Old"
+  gross_income: 1000000
+  total_exemptions: 196200
+  total_deductions: 321400
+  taxable_income: 482400
+  tax_before_rebate: 11620
+  rebate_87a: 11620
+  final_tax_liability: 0
+  monthly_tds: 0
+  net_annual_salary: 937600
+  key_validations:
+    - "Old regime tax slab applied correctly"
+    - "HRA exemption calculated correctly for metro city (Mumbai)"
+    - "Multiple allowance exemptions applied (transport, meal, LTA, children education/hostel, books, telephone)"
+    - "Standard deduction of ₹50,000 applied"
+    - "Section 80C deduction capped at ₹1,50,000"
+    - "NPS deductions correctly applied (80CCD1 and 80CCD2)"
+    - "Section 80D health insurance deduction for self+family and parents"
+    - "Section 80G donations deduction applied"
+    - "Section 80TTA savings interest deduction applied"
+    - "Section 87A rebate fully applied (taxable income below ₹5L threshold)"
+    - "Final tax liability is zero due to rebate"
+  status: "Pass"
+

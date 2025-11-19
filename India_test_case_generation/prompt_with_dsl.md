@@ -1,6 +1,18 @@
 # Test Case Generation Prompt for Indian Payroll Engine (with DSL Rules)
 
-You are tasked with generating comprehensive test case data in CSV format for the Indian Payroll Engine. The test cases must satisfy specific data requirements and cover all defined use cases, while ensuring full compliance with Indian tax laws and regulations.
+## ROLE
+You are an expert tax consultant and test engineer specializing in Indian tax law and payroll systems.
+
+## TASK
+Generate comprehensive test cases for validating the Indian Payroll Engine for assessment year 2025-26. The test cases must satisfy specific data requirements and cover all defined use cases, while ensuring full compliance with Indian tax laws and regulations.
+
+## TARGET USERS
+- Payroll administrators
+- Tax professionals
+- System developers
+
+## PURPOSE
+Validate tax calculations against official Indian tax regulations and ensure the payroll engine correctly implements all tax rules, exemptions, deductions, and compliance requirements as defined in the machine-readable DSL rules.
 
 ## Context
 
@@ -67,7 +79,16 @@ You will be provided with the following files in the same directory:
    
    For each dataset, identify all the individual fields from employee_dsl.yaml that belong to it.
 
-7. **Generate CSV files**: Create multiple CSV files with test case data:
+7. **Map test cases to rule IDs**: For each test case, you MUST:
+   - Identify which rules from `mr_dsl.yaml` apply to the test case scenario
+   - Extract rule IDs (e.g., "IN-IT-SLAB-OLD-NORMAL-001", "IN-IT-SURCHARGE-001")
+   - Verify rule conditions (when clauses) are met by the test case data
+   - Verify rule actions (then clauses) are correctly applied in expected results
+   - Document the mapping of test cases to rule IDs
+   - Create a rule coverage matrix showing which rules are validated by which test cases
+   - Ensure comprehensive coverage of rules - identify any rules that are not covered by any test case
+
+8. **Generate test case files**: Create test case files in both YAML and CSV formats:
    - **Input CSV**: Contains all fields from input datasets - all employee data that serves as input to the payroll system
    - **Output CSV**: Contains all fields from output datasets - all expected output data from the payroll system (e.g., tax forecasts, payslips)
    - **Combined CSV**: Contains both input and output fields in a single file for comprehensive reference
@@ -78,7 +99,7 @@ You will be provided with the following files in the same directory:
    - Ensure all fields from a dataset are included when that dataset is required
    - Handle period-based, moment-based, and timeless fields appropriately based on the schema
    
-   All CSV files should:
+   All test case files (YAML and CSV) should:
    - Contain the exact number of employees specified in Data_requirements.md
    - Cover all test cases extracted from Use_Cases.md (some employees may cover multiple use cases)
    - Satisfy all necessary dataset requirements extracted from Data_requirements.md (with all their constituent fields)
@@ -86,6 +107,8 @@ You will be provided with the following files in the same directory:
    - Use valid field names from the employee_dsl.yaml schema
    - Contain realistic data values appropriate for each test case scenario
    - Properly structure datasets that span multiple time periods (e.g., monthly data for April, December, March)
+   - Include step-by-step calculation documentation showing all intermediate steps
+   - Reference specific rule IDs from mr_dsl.yaml
    - **Be fully compliant with rules in mr_dsl.yaml and additional Indian tax laws**
 
 ## CSV Format Requirements
@@ -131,26 +154,83 @@ Create a comprehensive checklist from the extracted dataset requirements and ens
 
 ## Output Format
 
-Generate a minimum of three CSV files:
+Generate test case files in both YAML and CSV formats:
 
-### 1. Input CSV File
+### YAML Test Case Files
+
+Generate individual YAML test case files for each test case scenario:
+
+- **Naming Convention**: `TC-##_ScenarioDescription.yaml` (e.g., `TC-01_NewRegimeBelowExemption.yaml`, `TC-02_OldRegimeMultipleDeductions.yaml`)
+- **Count**: One YAML file per test case from Use_Cases.md
+- **Structure**: Each YAML file must include:
+  
+  **a) Metadata Section:**
+  - Type, version, jurisdiction, effective date, description
+  - Test Case ID and scenario name
+  - Rules applied (list of rule IDs from mr_dsl.yaml - MANDATORY)
+  
+  **b) Employee Profile:**
+  - Personal details (name, age, PAN/tax ID, DOB, gender)
+  - Location (state, city, residency status)
+  - Employment details (type, status, employer type, service years)
+  - Tax regime selection
+  
+  **c) Income Components:**
+  - Salary breakdown (basic, HRA/housing, allowances, bonuses)
+  - Other income sources (rental, interest, capital gains)
+  - Investment details
+  - Deduction claims
+  
+  **d) Expected Results (in comments):**
+  - Step-by-step calculation breakdown
+  - Gross to net computation
+  - All exemptions applied (with formulas)
+  - All deductions itemized
+  - Tax slab breakdown
+  - Surcharge and cess calculations (if applicable)
+  - Final tax liability derivation
+  - Monthly TDS/withholding
+  - Rule IDs referenced for each calculation step
+
+### CSV Files
+
+Generate the following CSV files:
+
+#### 1. Master Summary CSV
+- **Filename**: `test_cases_master_summary.csv`
+- **Columns**: Test ID, Employee Name, Age, Tax Regime, City, Gross Income, Taxable Income, Tax Breakdown, Final Tax, Key Features, Rules Applied, Status
+- **Purpose**: High-level overview of all test cases for quick reference
+- **Rows**: One row per test case (plus header row)
+
+#### 2. Detailed Input CSV
 - **Filename**: `indian_payroll_test_cases_input.csv` (or similar descriptive name)
 - **Content**: All fields from input datasets extracted from Data_requirements.md (marked as "Input")
   - Each input dataset requirement must be fully represented with all its constituent fields from employee_dsl.yaml
   - For time-based datasets (e.g., monthly bonus data), include columns for each required time period
+  - Should contain 30-40 columns covering all employee attributes, salary components, investments, deductions
 - **Purpose**: Contains all employee input data required for payroll processing
 - **Rows**: The exact number of employee rows as specified in Data_requirements.md (plus header row)
 
-### 2. Output CSV File
+#### 3. Detailed Output CSV
 - **Filename**: `indian_payroll_test_cases_output.csv` (or similar descriptive name)
 - **Content**: All fields from output datasets extracted from Data_requirements.md (marked as "Output")
   - Each output dataset requirement must be fully represented with all its constituent fields
   - For time-based datasets (e.g., monthly payslip data), include columns for each required time period
-- **Purpose**: Contains all expected output data from the payroll system
+  - Should contain 40+ columns with step-by-step calculation breakdown:
+    - Gross income components
+    - Exemptions applied (with amounts)
+    - Deductions itemized
+    - Taxable income calculation
+    - Tax slab-wise breakdown
+    - Surcharge and cess
+    - Final tax liability
+    - Monthly TDS/withholding
+    - Rule IDs applied at each step
+- **Purpose**: Contains all expected output data from the payroll system with detailed calculations
 - **Rows**: The exact number of employee rows as specified in Data_requirements.md (plus header row)
 - **Note**: Output data should correspond to the same employees in the same order as the input CSV
 
-### 3. Combined CSV File
+#### 4. Combined CSV File
 - **Filename**: `indian_payroll_test_cases_combined.csv` (or similar descriptive name)
 - **Content**: Both input and output fields from all datasets in a single file
   - All fields from all input datasets
@@ -158,15 +238,25 @@ Generate a minimum of three CSV files:
 - **Purpose**: Comprehensive reference file with all data together
 - **Rows**: The exact number of employee rows as specified in Data_requirements.md (plus header row)
 
-### Additional Files (if needed)
-- Generate additional CSV files if the data structure requires separation (e.g., monthly data files, separate files for different data types)
-- Use descriptive filenames that clearly indicate the content and purpose
+### Additional Files
 
-### Mapping Document
-- Create a separate mapping document (e.g., `test_case_mapping.md` or include as comments) indicating:
+#### Rule-to-Test-Case Mapping Document (MANDATORY)
+- **Filename**: `test_case_rule_mapping.md` or `test_case_rule_mapping.csv`
+- **Content**: 
+  - Mapping of test cases to rule IDs from mr_dsl.yaml (MANDATORY - all applicable rules must be mapped)
+  - Which rules apply to each test case
+  - Rule coverage matrix showing which rules are validated by which test cases
+  - Missing rule coverage identification
+  - Verification that rule conditions (when clauses) are met
+  - Verification that rule actions (then clauses) are applied
+
+#### Test Case Mapping Document
+- **Filename**: `test_case_mapping.md`
+- **Content**:
   - Which employees correspond to which test cases (using Test Case IDs from Use_Cases.md)
   - Which employees cover multiple test cases
   - Any special notes about specific test scenarios
+  - Cross-reference to YAML files and CSV rows
 
 ## File Path Handling
 
@@ -189,11 +279,14 @@ You should:
 3. Read `/path/to/India_test_case_generation/Data_requirements.md`
 4. Read `/path/to/India_test_case_generation/Use_Cases.md`
 5. Create output directory: `/path/to/India_test_case_generation/output_with_dsl_20250115_143022/` (with current timestamp)
-6. Generate the following CSV files in the output directory:
-   - `/path/to/India_test_case_generation/output_with_dsl_20250115_143022/indian_payroll_test_cases_input.csv`
-   - `/path/to/India_test_case_generation/output_with_dsl_20250115_143022/indian_payroll_test_cases_output.csv`
-   - `/path/to/India_test_case_generation/output_with_dsl_20250115_143022/indian_payroll_test_cases_combined.csv`
-   - Additional files as needed (e.g., mapping document)
+6. Generate the following files in the output directory:
+   - YAML test case files: `TC-01_*.yaml`, `TC-02_*.yaml`, etc. (one per test case from Use_Cases.md)
+   - Master Summary CSV: `test_cases_master_summary.csv`
+   - Detailed Input CSV: `indian_payroll_test_cases_input.csv`
+   - Detailed Output CSV: `indian_payroll_test_cases_output.csv`
+   - Combined CSV: `indian_payroll_test_cases_combined.csv`
+   - Rule-to-Test-Case Mapping: `test_case_rule_mapping.md` or `.csv` (MANDATORY)
+   - Test Case Mapping: `test_case_mapping.md`
 
 **Scenario 2: No filepath provided**
 If no filepath is provided, use the directory where this prompt file is located.
@@ -206,16 +299,128 @@ You should:
 3. Read `/path/to/India_test_case_generation/Data_requirements.md`
 4. Read `/path/to/India_test_case_generation/Use_Cases.md`
 5. Create output directory: `/path/to/India_test_case_generation/output_with_dsl_20250115_143022/` (with current timestamp)
-6. Generate the following CSV files in the output directory:
-   - `/path/to/India_test_case_generation/output_with_dsl_20250115_143022/indian_payroll_test_cases_input.csv`
-   - `/path/to/India_test_case_generation/output_with_dsl_20250115_143022/indian_payroll_test_cases_output.csv`
-   - `/path/to/India_test_case_generation/output_with_dsl_20250115_143022/indian_payroll_test_cases_combined.csv`
-   - Additional files as needed (e.g., mapping document)
+6. Generate the following files in the output directory:
+   - YAML test case files: `TC-01_*.yaml`, `TC-02_*.yaml`, etc. (one per test case from Use_Cases.md)
+   - Master Summary CSV: `test_cases_master_summary.csv`
+   - Detailed Input CSV: `indian_payroll_test_cases_input.csv`
+   - Detailed Output CSV: `indian_payroll_test_cases_output.csv`
+   - Combined CSV: `indian_payroll_test_cases_combined.csv`
+   - Rule-to-Test-Case Mapping: `test_case_rule_mapping.md` or `.csv` (MANDATORY)
+   - Test Case Mapping: `test_case_mapping.md`
+
+## Calculation Transparency Requirements
+
+All test cases must include comprehensive calculation documentation showing:
+
+1. **Step-by-Step Breakdown**:
+   - Document every intermediate calculation step
+   - Show formulas used for each calculation
+   - Display all threshold checks and conditions
+   - Include all rounding and precision handling
+   - Reference rule IDs from mr_dsl.yaml for each calculation
+
+2. **Gross to Net Computation**:
+   - Start with gross salary components
+   - Show each exemption applied with formula and amount
+   - Show each deduction applied with limit checks
+   - Calculate taxable income step-by-step
+   - Reference applicable rule IDs
+
+3. **Exemption Calculations**:
+   - HRA exemption: Show all three calculations (actual rent paid, 50%/40% of basic, actual HRA received) and minimum
+   - Conveyance allowance: Show exemption limit application
+   - LTA: Show exemption calculation and conditions
+   - Other allowances: Show exemption formulas and limits
+   - Reference rule IDs from mr_dsl.yaml for each exemption
+
+4. **Deduction Itemization**:
+   - Section 80C: Show all components and aggregate limit
+   - Section 80D: Show self, family, and parents' premiums with limits
+   - Section 80G: Show eligible donations and limits
+   - Other deductions: Show each deduction with applicable limits
+   - Reference rule IDs from mr_dsl.yaml for each deduction
+
+5. **Tax Slab Breakdown**:
+   - Show income falling in each tax slab (use slab definitions from mr_dsl.yaml)
+   - Calculate tax for each slab separately
+   - Show progressive tax calculation
+   - Display cumulative tax at each slab
+   - Reference tax slab rule IDs from mr_dsl.yaml
+
+6. **Surcharge and Cess**:
+   - Show surcharge calculation based on income thresholds (from mr_dsl.yaml)
+   - Show health and education cess calculation (from mr_dsl.yaml)
+   - Display total tax including surcharge and cess
+   - Reference surcharge and cess rule IDs
+
+7. **Final Tax Liability**:
+   - Show rebates applied (e.g., Section 87A) with rule ID reference
+   - Show final tax after rebates
+   - Calculate monthly TDS/withholding
+   - Show annual tax forecast
+
+8. **Mathematical Verification**:
+   - Verify all additions and subtractions
+   - Verify percentage calculations
+   - Verify rounding at each step
+   - Cross-verify final tax with manual calculation
+   - Verify calculations match rule outputs from mr_dsl.yaml
+
+**Documentation Format**: Include these calculations in:
+- YAML file comments (Expected Results section) with rule ID references
+- Detailed Output CSV columns with rule ID columns
+- Separate calculation documentation file (if needed)
+
+## Validation Requirements
+
+Before finalizing all test case files, perform the following validations:
+
+### Rule Validation (MANDATORY - mr_dsl.yaml is available):
+- **All applicable rules are triggered**: Verify that for each test case, all relevant rules from mr_dsl.yaml are identified and applied
+- **Rule conditions are met**: Verify that all "when" clauses in applicable rules are satisfied by the test case data
+- **Rule actions are applied correctly**: Verify that all "then" clauses in applicable rules are correctly implemented in the expected results
+- **Rule ID mapping**: Document which rule IDs apply to each test case in the rule-to-test-case mapping document (MANDATORY)
+- **Rule coverage**: Ensure comprehensive coverage of rules - identify any rules that are not covered by any test case
+- **Rule verification**: Cross-verify that calculations match the expected outputs from mr_dsl.yaml rules
+
+### Calculation Validation:
+- **Mathematical accuracy verified**: All calculations must be mathematically correct
+  - Verify addition, subtraction, multiplication, division
+  - Verify percentage calculations
+  - Verify rounding rules
+  - Cross-check totals and subtotals
+  - Verify against mr_dsl.yaml rule outputs
+
+- **Boundary conditions tested**: Test cases must include:
+  - Values at exact thresholds (e.g., exactly ₹12L for rebate threshold)
+  - Values just below thresholds
+  - Values just above thresholds
+  - Maximum limit cases (e.g., maximum deduction limits from mr_dsl.yaml)
+  - Minimum value cases
+
+- **Formula application verified**: 
+  - HRA exemption formula correctly applied (per mr_dsl.yaml rules)
+  - Tax slab calculations follow progressive structure (per mr_dsl.yaml)
+  - Surcharge calculations at correct thresholds (per mr_dsl.yaml)
+  - Cess calculations on correct base (per mr_dsl.yaml)
+
+### Data Validation:
+- **Input data consistency**: Verify that input data is internally consistent
+- **Output data consistency**: Verify that output data logically follows from input data
+- **Cross-file consistency**: Verify that data is consistent across YAML files, CSV files, and mapping documents
+- **Rule compliance**: Verify that all calculations comply with mr_dsl.yaml rules
+
+### Compliance Validation:
+- **Tax law compliance**: All calculations comply with Indian Income Tax Act
+- **DSL rule compliance**: All calculations comply with rules in mr_dsl.yaml
+- **Regulation compliance**: All deductions, exemptions, and allowances comply with current regulations
+- **Limit compliance**: All amounts are within legal limits for each category (as per mr_dsl.yaml)
 
 ## Quality Assurance
 
-Before finalizing the CSV files:
-- Verify all three CSV files (input, output, combined) are generated
+Before finalizing all test case files (YAML and CSV):
+- Verify all YAML test case files are generated (one per test case from Use_Cases.md)
+- Verify all CSV files (Master Summary, Detailed Input, Detailed Output, Combined) are generated
 - Verify the exact number of employees specified in Data_requirements.md are included in all files
 - Verify all test cases extracted from Use_Cases.md are covered
 - Verify all necessary dataset requirements extracted from Data_requirements.md are met (with ALL their constituent fields)
@@ -238,6 +443,11 @@ Before finalizing the CSV files:
 - **Verify deduction limits match those specified in mr_dsl.yaml**
 - Verify output data logically corresponds to input data for each employee
 - **Verify mathematical accuracy of all calculations**
+- **Verify step-by-step calculation documentation is included in YAML files and Detailed Output CSV**
+- **Verify rule IDs are referenced in all YAML files and mapping documents (MANDATORY)**
+- **Verify rule-to-test-case mapping document is created and comprehensive (MANDATORY)**
+- **Verify boundary conditions are tested**
+- **Verify all applicable rules from mr_dsl.yaml are triggered and validated**
 - **Cross-verify calculations against both mr_dsl.yaml rules and additional Indian tax laws**
 
 ## Indian Tax Law and Income Rule Compliance
@@ -315,5 +525,9 @@ Before finalizing the CSV files:
 
 **Ready to generate**: Once you have read all four files (employee_dsl.yaml, mr_dsl.yaml, Data_requirements.md, Use_Cases.md) from the provided directory (or the directory where this prompt is located if no directory is provided), proceed to:
 1. Create the output directory `output_with_dsl_{timestamp}` in the source directory
-2. Generate the comprehensive CSV test case files (input, output, and combined) in the output directory following all the requirements above, ensuring full compliance with mr_dsl.yaml rules and Indian tax laws
+2. Generate YAML test case files (one per test case from Use_Cases.md) with comprehensive calculation documentation and rule ID references
+3. Generate the comprehensive CSV test case files (Master Summary, Detailed Input, Detailed Output, and Combined) in the output directory
+4. Create rule-to-test-case mapping document (MANDATORY - must map all applicable rules from mr_dsl.yaml)
+5. Create test case mapping document
+6. Follow all the requirements above including calculation transparency, validation requirements, and full compliance with mr_dsl.yaml rules and Indian tax laws
 

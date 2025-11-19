@@ -4,7 +4,7 @@
 You are an expert tax consultant and test engineer specializing in Indian tax law and payroll systems.
 
 ## TASK
-Generate comprehensive test cases for validating the Indian Payroll Engine for assessment year 2025-26. The test cases must satisfy specific data requirements and cover all defined use cases.
+Generate comprehensive test cases for validating the Indian Payroll Engine for assessment year 2026-27. The test cases must satisfy specific data requirements and cover all defined use cases.
 
 ## TARGET USERS
 - Payroll administrators
@@ -26,12 +26,12 @@ You will be provided with the following files in the same directory:
 1. **Read and understand the schema**: First, read the `employee_dsl.yaml` file to understand the complete data structure, field types, and relationships for the inputs you are going to prepare.
 
 2. **Review requirements**: Read `Data_requirements.md` to understand:
-   - **Total number of employees needed: 50** (hardcoded requirement)
+   - **Total number of employees needed: 30** (hardcoded requirement)
    - Required input datasets (marked as "Necessary" and "Input") - note that each requirement represents a dataset, not a single field
    - Required output datasets (marked as "Necessary" and "Output") - each requirement represents a dataset with multiple fields
    - Optional datasets (marked as "Optional")
    
-   **Note**: Generating 50 employees with all required data is a substantial task. You are free to split this work across multiple tries if it's too much. For example:
+   **Note**: Generating 30 employees with all required data is a substantial task. You are free to split this work across multiple tries if it's too much. For example:
    - First try: Generate a subset of employees (covering a portion of the test cases)
    - Subsequent tries: Generate the remaining employees (covering the remaining test cases)
    - Ensure consistency in data format, employee IDs, and file structure across all sessions
@@ -89,9 +89,9 @@ You will be provided with the following files in the same directory:
    - Handle period-based, moment-based, and timeless fields appropriately based on the schema
    
    All test case files (CSV) should:
-   - Contain exactly 50 employees (hardcoded requirement)
+   - Contain exactly 30 employees (hardcoded requirement)
    - Cover all test cases extracted from Use_Cases.md (some employees may cover multiple use cases)
-   - **Note**: The LLM is free to generate in multiple tries if it's too much, but ensure the total across all sessions equals 50 employees
+   - **Note**: The LLM is free to generate in multiple tries if it's too much, but ensure the total across all sessions equals 30 employees
    - Satisfy all necessary dataset requirements extracted from Data_requirements.md (with all their constituent fields)
    - Include optional dataset requirements where applicable (with all their constituent fields)
    - Use valid field names from the employee_dsl.yaml schema
@@ -138,9 +138,9 @@ Ensure all test cases extracted from `Use_Cases.md` are represented in your empl
 Create a comprehensive checklist from the extracted dataset requirements and ensure:
 - All dataset requirements marked as "Necessary" are included for all employees (with ALL their constituent fields)
 - All dataset requirements marked as "Optional" are included for at least some employees (as specified in the requirements, with ALL their constituent fields)
-- The total number of employees is exactly 50 (hardcoded requirement)
+- The total number of employees is exactly 30 (hardcoded requirement)
 - Each dataset is fully represented with all its fields (e.g., "Monthly Payslip Data" includes all payslip-related fields for the required months)
-- **Note**: If generating in multiple chat sessions, coordinate to ensure exactly 50 employees total across all sessions
+- **Note**: If generating in multiple chat sessions, coordinate to ensure exactly 30 employees total across all sessions
 
 ## Output Format
 
@@ -170,7 +170,7 @@ Generate the following CSV files as specified in Data_requirements.md:
   - section_80c_investments, self_family_premium, parents health insurance premium
   - professional tax paid, income or loss from house property, rent paid
 - **Purpose**: Contains all annual employee input data required for payroll processing
-- **Rows**: Exactly 50 employee rows (plus header row)
+- **Rows**: Exactly 30 employee rows (plus header row)
 - **Note**: Include all columns listed above. Additional columns from employee_dsl.yaml may be included as needed.
 
 #### 3. Monthly Input CSVs
@@ -183,7 +183,7 @@ Generate separate CSV files for monthly input data:
   - `monthly_bonus_commission_march.csv` (for March 2026)
 - **Content**: Monthly bonus and commission data for April 2025, December 2025, and March 2026
 - **Columns**: ID, bonus, commission, performance_bonus (and other relevant monthly bonus/commission fields)
-- **Rows**: Exactly 50 employee rows (plus header row) for each month
+- **Rows**: Exactly 30 employee rows (plus header row) for each month
 - **Requirement**: Each CSV must have **at least 5 non-zero values** (i.e., at least 5 employees must have bonus or commission in each month)
 
 **b) CTC Revision Data (December 2025)**
@@ -215,7 +215,7 @@ Generate separate CSV files for monthly input data:
   - base tax, rebate, tax after rebate, surcharge, tax with surcharge
   - health and education cess, total tax liability, monthly tds, net salary
 - **Purpose**: Contains annual tax forecast with detailed calculations
-- **Rows**: Exactly 50 employee rows (plus header row)
+- **Rows**: Exactly 30 employee rows (plus header row)
 - **Note**: Include all columns listed above. Output data should correspond to the same employees in the same order as the Annual Input CSV.
 
 #### 5. Monthly Output CSVs (Payslip Data)
@@ -240,7 +240,7 @@ Generate separate CSV files for monthly payslip data for 3 months:
   - Base tax_monthly, Rebate_monthly, Tax after rebate_monthly, Surcharge_monthly, Tax with surcharge_monthly
   - Health and education cess_monthly, tds_monthly, Net Salary_monthly
 - **Purpose**: Contains monthly payslip data with detailed calculations for each month
-- **Rows**: Exactly 50 employee rows (plus header row) for each month
+- **Rows**: Exactly 30 employee rows (plus header row) for each month
 - **Note**: Each month's payslip should correspond to the same employees in the same order. Include step-by-step calculation breakdown in the columns.
 
 ### Additional Files
@@ -415,7 +415,7 @@ Before finalizing all test case files (CSV):
   - Annual Output CSV (with all minimum required columns)
   - Monthly Output CSVs (3 payslip files with all minimum required columns)
 - Verify Arrears Data is NOT generated (marked as "Later, not to be generated now")
-- Verify exactly 50 employees are included in all files (or coordinate across multiple chat sessions to total 50)
+- Verify exactly 30 employees are included in all files (or coordinate across multiple chat sessions to total 30)
 - Verify all test cases extracted from Use_Cases.md are covered
 - Verify all necessary dataset requirements extracted from Data_requirements.md are met (with ALL their constituent fields)
 - Verify each dataset requirement is fully represented with all its fields from employee_dsl.yaml
@@ -426,7 +426,7 @@ Before finalizing all test case files (CSV):
 - Verify employee order and IDs are consistent across all CSV files
 - Verify data types match the schema definitions
 - Verify realistic data values for each scenario
-- Verify date ranges are appropriate (FY 2025-26)
+- Verify date ranges are appropriate (FY 2025-26 for AY 2026-27)
 - **Verify all tax calculations are compliant with Indian Income Tax Act and current tax rules**
 - **Verify all deductions, exemptions, and allowances comply with Indian tax regulations**
 - **Verify all amounts, percentages, and thresholds align with current Indian tax laws**
@@ -495,7 +495,7 @@ Before finalizing all test case files (CSV):
 
 **Ready to generate**: Once you have read all three files from the provided directory (or the directory where this prompt is located if no directory is provided), proceed to:
 1. Create the output directory `output_{timestamp}` in the source directory
-2. Generate the comprehensive CSV test case files for **exactly 50 employees**:
+2. Generate the comprehensive CSV test case files for **exactly 30 employees**:
    - Master Summary CSV
    - Annual Input CSV (with all minimum required columns from Data_requirements.md)
    - Monthly Input CSVs (bonus/commission for April 2025, December 2025, March 2026 with at least 5 non-zero values per CSV + CTC revision for December 2025 for 3 employees + tax regime revision for December 2025 for 2 employees)
@@ -507,9 +507,9 @@ Before finalizing all test case files (CSV):
 6. Follow all the requirements above including calculation transparency and validation requirements
 7. **Important**: Do NOT generate Arrears Data files (marked as "Later, not to be generated now" in Data_requirements.md)
 
-**Note on Task Size**: Generating 50 employees with all required data is substantial. You are free to split this work across multiple tries if it's too much. If doing so:
+**Note on Task Size**: Generating 30 employees with all required data is substantial. You are free to split this work across multiple tries if it's too much. If doing so:
 - First try: Generate a subset of employees covering a portion of the test cases
 - Subsequent tries: Generate the remaining employees covering the remaining test cases
-- Ensure consistency in data format, employee IDs (e.g., EMP001-EMP025 in first try, EMP026-EMP050 in subsequent tries), and file structure across all sessions
+- Ensure consistency in data format, employee IDs (e.g., EMP001-EMP015 in first try, EMP016-EMP030 in subsequent tries), and file structure across all sessions
 - All sessions should generate all required CSV files, but with their respective employee subsets
 

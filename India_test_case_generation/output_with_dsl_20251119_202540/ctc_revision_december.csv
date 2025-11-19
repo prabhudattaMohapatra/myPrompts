@@ -1,0 +1,5 @@
+employee_id,revision_date,previous_gross_salary,revised_gross_salary,previous_basic_salary,revised_basic_salary,previous_hra_received,revised_hra_received,previous_special_allowance,revised_special_allowance,revision_reason
+EMP003,2025-12-01,1550000,1750000,620000,700000,248000,280000,650000,740000,Annual Performance Review
+EMP006,2025-12-01,1150000,1300000,460000,520000,184000,208000,481000,547000,Promotion
+EMP013,2025-12-01,1550000,1700000,620000,680000,248000,272000,638000,718000,Market Adjustment
+

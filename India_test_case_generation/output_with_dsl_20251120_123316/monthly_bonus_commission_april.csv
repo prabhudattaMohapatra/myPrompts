@@ -1,3 +1,3 @@
-ID,bonus,commission,performance_bonus,month,year
-EMP004,0,80000,0,April,2025
-EMP007,0,0,50000,April,2025
+ID,bonus,commission,month,year
+EMP004,0,80000,April,2025
+EMP007,50000,0,April,2025

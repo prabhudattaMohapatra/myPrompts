@@ -65,17 +65,26 @@ For each employee, follow this 7-step workflow:
 The annual input data represents the CTC breakdown prepared at the **start of the financial year (April 2025)**. Therefore:
 
 **DO NOT include variable bonuses/commissions** that will be paid later in the year:
-- `bonus` field = 0 (if it's a variable bonus paid in specific months later)
-- `commission` field = 0 (if it's variable commission paid in specific months later)  
-- `performance_bonus` field = 0 (if it's variable performance bonus paid in specific months later)
+- `bonus` field = **0** (bonus is one-time variable payment, NOT annual salary)
+- `commission` field = **0** (commission is one-time variable payment, NOT annual salary)  
+- `performance_bonus` field = **0** (performance bonus is one-time variable payment, NOT annual salary)
 
-**DO include fixed bonuses/commissions** that are part of regular monthly salary structure:
-- Fixed monthly bonus paid every month → Include total annual amount
-- Regular commission structure paid monthly → Include total annual amount
+**IMPORTANT**: Bonus and commission are **NOT part of annual salary structure**. They are:
+- Variable one-time payments
+- Paid in specific months only
+- Recorded ONLY in `monthly_bonus_commission_{month}.csv` files
+- Taxed in the month they are paid (added to that month's income)
 
-**How to Distinguish:**
-- **Fixed**: Paid every month as part of regular salary → Include in annual input (will be divided by 12 in monthly payslips)
-- **Variable**: Paid only in specific months → Set to 0 in annual input, create entries in `monthly_bonus_commission_{month}.csv`
+**Exception (Rare)**: If an employee has a **fixed monthly bonus** paid every single month as part of regular salary:
+- Include total annual amount in annual input
+- This is extremely rare in Indian payroll
+- Most bonuses are annual/quarterly and should be in monthly files
+
+**For New Employee Generation**:
+1. Set bonus = 0, commission = 0, performance_bonus = 0 in annual input
+2. If employee should receive bonus/commission:
+   - Add entry in appropriate `monthly_bonus_commission_{month}.csv`
+   - That month's payslip will show increased income and TDS
 
 **Examples:**
 - EMP002: ₹70K commission paid only in December → `commission = 0`, `annual_ctc = 1430000` (excluding variable commission)
@@ -98,18 +107,43 @@ Generate only if:
 
 ### Step 4: Generate Annual Tax Forecast Output
 
-Calculate and generate:
+**CRITICAL: Tax Forecast Methodology (April 2025)**
+
+The tax forecast is prepared in **April 2025** based on **KNOWN and COMMITTED** income at that point only. Future variable payments that haven't been declared/committed CANNOT be included.
+
+**Gross Salary (column 3):**
+- MUST equal the gross_salary from annual_employee_input_data (exact copy)
+- Contains ONLY fixed salary components known in April
+- Does NOT include variable bonus/commission (unknown/undecided in April)
+- Validation: `output_gross_salary == input_gross_salary`
+
+**Gross Income (column 5):**
+- For MOST employees: `gross_income = gross_salary` (no additional income)
+- For employees with OTHER known income: `gross_income = gross_salary + other_income`
+  - Other income = Known sources: rental property, interest, previous year capital gains
+- Does NOT include FUTURE variable pay (bonus/commission paid later in year)
+- This is the base for tax calculation and monthly TDS deduction
+
+**Calculate and generate:**
 
 - Exemptions (HRA, conveyance, LTA) using formulas from mr_dsl.yaml
+  - **CRITICAL - LTA Exemption**: Always **₹0** in April forecast
+    - LTA exemption depends on actual travel which happens later in year
+    - Employee must submit bills/proof of travel for exemption
+    - Cannot predict whether travel will happen or bills will be submitted
+    - Actual exemption claimed in monthly payslip when travel occurs
+    - `lta_received` in input = annual LTA component (accrual), NOT exemption
 - Deductions (80C, 80D, 80G, 80CCD, etc.) with limit checks from mr_dsl.yaml
 - Taxable income = Gross Income - Exemptions - Deductions - Standard Deduction
 - Base tax using progressive tax slabs from mr_dsl.yaml (old/new regime, senior citizen if applicable)
 - Rebate (Section 87A) if applicable per mr_dsl.yaml
 - Surcharge based on income thresholds from mr_dsl.yaml
 - Cess (4% of tax + surcharge) per mr_dsl.yaml
-- Final tax liability and monthly TDS
+- Final tax liability and monthly TDS (based on April forecast only)
 - Net salary
 - Include step-by-step calculation breakdown with rule ID references
+
+**Key Principle**: Tax forecast reflects CURRENT known income (April). Variable bonuses paid later are handled via monthly TDS adjustments when actually received.
 
 ### Step 5: Generate Monthly Output Data (If Required)
 

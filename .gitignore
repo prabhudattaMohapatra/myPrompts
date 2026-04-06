@@ -141,3 +141,4 @@ vite.config.ts.timestamp-*
 India_test_case_generation/output_with_dsl_20251120_123316/Verification/
 India_test_case_generation/verification_20251120_153114/
 India_test_case_generation/verification_*/
+.vscode/settings.json
